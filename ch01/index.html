@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 1: Introduction - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch01 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -65,33 +65,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch02/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch02/" class="btn btn-xs btn-link">
-        Chapter 2: Building Blocks
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../acknowledgments/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../acknowledgments/" class="btn btn-xs btn-link">
-        Acknowledgments
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch1"></div>
 <h1 id="chapter-1-introduction">Chapter 1: Introduction</h1>
@@ -133,11 +106,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="12-ai-ml-nn-and-dl">1.2 AI, ML, NN, and DL</h2>
 <p>The terms artificial intelligence (AI), machine learning (ML), neural network (NN), and deep learning (DL) are often used interchangeably. While there are no agreed-upon standard definitions, the following are common and captured in Figure <a href="../ch01/#fig:ai-ml-dl">1.1</a>.</p>
 <div id="fig:ai-ml-dl"></div>
-<p><img alt="" src="figures/ch01-01.png" />
+<p><img alt="" src="../figures/ch01-01.png" />
 <em>Figure 1.1:</em> Deep learning is a subset of neural networks, which is a subset of machine learning, which is a subset of artificial intelligence.</p>
 <p>AI is any program or system that can learn, act, or adapt. The recent popularity of AI comes from advances in ML algorithms, specifically in DL. An ML model is a program that learns a function that maps the input data (or features extracted from the input data) to a desired output. Geometrically, this mapping is from a vector space where the data is not linearly separable to a vector space where the data is linearly separable, as illustrated in Figure <a href="../ch01/#fig:manifold">1.2</a>. These vector spaces are formally known as Hilbert spaces or manifolds. The mapping function or statistical performance (accuracy) of the model usually improves with more data.</p>
 <div id="fig:manifold"></div>
-<p><img alt="" src="figures/ch01-02.png" />
+<p><img alt="" src="../figures/ch01-02.png" />
 <em>Figure 1.2:</em> A machine learning algorithm maps the input data to a space or manifold where the data can be classified with a linear classifier. Source: [<a href="../biblio/#wikimedia2011">Wik11</a>] (CC BY-SA 4.0).</p>
 <p>NN models, also called artificial neural networks (ANNs), are typically composed of simple nonlinear functions, called layers, stacked together to represent complex functions or mappings. Stacking multiple linear functions results in one linear function that can be represented with one layer, and would negate the benefit of multilayer mappings. Thus, the need for nonlinear functions. DL models, sometimes called deep neural networks (DNNs), are NN models with more than three layers and are end-to-end differentiable. Traditional machine learning (non-NN ML) models and NN models with <span class="arithmatex">\(1\)</span>-<span class="arithmatex">\(3\)</span> layers are also called shallow models.</p>
 <p>A difference between traditional ML and most of DL is traditional ML relies on domain experts to specify key features to use for the given task. In contrast, DL typically learns these features at the expense of requiring more data and compute. For decades, computer vision experts spent significant efforts studying <a href="https://ieeexplore.ieee.org/document/5255236">image features</a> to improve detection [<a href="../biblio/#felzenszwalb2010">FGM+10</a>]. DL practitioners with limited computer vision expertise demonstrated that NNs were able to learn features with increasing complexity at each layer and <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">outperform</a> state-of-the-art techniques in image detection and classification tasks [<a href="../biblio/#krizhevsky2012">KSH12</a>].</p>
@@ -150,7 +123,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="14-types-of-learning">1.4 Types of Learning</h2>
 <p>ML algorithms usually fall into one of four learning types or categories: supervised, unsupervised, semi-supervised, and reinforcement learning (RL), as shown in Figure <a href="../ch01/#fig:types">1.3</a> and discussed below. Despite the names, all these learnings are "supervised" in that they required a human to explicitly define the cost function that determines what is good or bad. Note that a different way to categorize ML algorithms is as discriminative or generative. A discriminative algorithm learns to map the input data to a probability distribution. A generative algorithm learns statistical properties about the data and generates new data.</p>
 <div id="fig:types"></div>
-<p><img alt="" src="figures/ch01-03.png" />
+<p><img alt="" src="../figures/ch01-03.png" />
 <em>Figure 1.3:</em> The four types of ML algorithms.</p>
 <div id="ch01.sec4.sub1"></div>
 <h3 id="141-supervised-learning">1.4.1 Supervised Learning</h3>
@@ -183,7 +156,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h3 id="142-unsupervised-and-self-supervised-learning">1.4.2 Unsupervised and Self-Supervised Learning</h3>
 <p>Unsupervised learning learns patterns in unlabeled data. Figure <a href="../ch01/#fig:types">1.3</a>b shows a clustering example with the learned clusters on unlabeled data. Self-supervised learning is a subset of unsupervised learning and includes learning embeddings and predicting missing words or pixels in text or images. For instance, each word in a 10,000-words-language can be represented as a 10,000-dimensional vector of all zeros except for a one at the index of the particular word. This vector is called a one-hot vector, shown in Figure <a href="../ch01/#fig:onehot">1.4</a>. Self-supervised learning models can learn to map this sparse vector to a small and dense vector representation. Other examples are learning dense vector representations for persons in a social network and products in a large catalog. These dense vector representations are often the inputs into a supervised learning model.</p>
 <div id="fig:onehot"></div>
-<p><img alt="" src="figures/ch01-04.png" />
+<p><img alt="" src="../figures/ch01-04.png" />
 <em>Figure 1.4:</em> One-hot vector. All entries are zero except a one at the vector entry corresponding to the word.</p>
 <div id="ch01.sec4.sub3"></div>
 <h3 id="143-semi-supervised-learning">1.4.3 Semi-Supervised Learning</h3>
@@ -195,7 +168,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="15-types-of-topologies">1.5 Types of Topologies</h2>
 <p>A <em>topology</em> is a computation graph that represents the structure or architecture of a NN, as shown in Figure <a href="../ch01/#fig:graph">1.5</a>. The nodes represent operations on tensors (multidimensional arrays), and the edges dictate the data flow and data-dependencies between nodes.</p>
 <div id="fig:graph"></div>
-<p><img alt="" src="figures/ch01-05.png" />
+<p><img alt="" src="../figures/ch01-05.png" />
 <em>Figure 1.5:</em> A computation graph takes a tensor input and produces a tensor output. Serving involves typically one forward propagation. Training involves numerous forward and backward iteration cycles.</p>
 <p>The main types of topologies used in commercial applications are multilayer perceptrons (MLPs), convolution neural networks (CNNs), recurrent neural networks (RNNs), and transformer networks. These topologies are introduced below and detailed in Chapter <a href="../ch03/#ch03">3</a>. Other types of topologies common in research with some adoption in commercial applications are graph neural networks (GNNs), adversarial networks (ANs), and autoencoders (AEs). Bayesian neural networks (BNNs) and spiking neural networks (SNNs) are limited to research.</p>
 <div id="ch01.sec5.sub1"></div>
@@ -204,13 +177,13 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>An MLP is a vanilla FFNN with affine layers, also called fully connected layers, with each layer followed by an activation function. An affine layer is composed of units that linearly combine the weighted outputs or activations from the previous layer plus a bias (the bias is considered another weight). Using multiple layers enables the MLP model to <a href="https://www.sciencedirect.com/science/article/abs/pii/0893608089900208">represent</a> complex nonlinear functions [<a href="../biblio/#hornik1989">HSW89</a>]. Geometrically, an MLP model attempts to map one vector space to another vector space, where the data is linearly separable, via multiple nonlinear transformations, as shown in Figure <a href="../ch01/#fig:manifold">1.2</a>. In this new manifold, the last FFNN layer is a linear classifier that separates most of the data from different classes.</p>
 <p>Figure <a href="../ch01/#fig:mlp">1.6</a> shows a four-layer MLP used for digit classification with Layer <span class="arithmatex">\(0\)</span> having <span class="arithmatex">\(D^{(0)}=784\)</span> units corresponding to each pixel (the input image has <span class="arithmatex">\(28\times 28\)</span> pixels), Layers 1 and 2 are hidden units having <span class="arithmatex">\(D^{(1)}=128\)</span> and <span class="arithmatex">\(D^{(2)}=32\)</span> units, and Layer <span class="arithmatex">\(3\)</span> having <span class="arithmatex">\(D^{(3)}=10\)</span> units corresponding to the <span class="arithmatex">\(10\)</span> possible digits, where <span class="arithmatex">\(D^{(l)}\)</span> is the number of units or dimensions of Layer <span class="arithmatex">\(l\)</span>. In Section <a href="../ch01/#ch01.sec6">1.6</a>, we detail how to train this model. In practice, a CNN model is a better choice for digit classification; we use an MLP model to introduce this type of topology with a simple example.</p>
 <div id="fig:mlp"></div>
-<p><img alt="" src="figures/ch01-06.png" />
+<p><img alt="" src="../figures/ch01-06.png" />
 <em>Figure 1.6:</em> An MLP with four layers: the input layer, two hidden layers, and the output layer. This model maps the <span class="arithmatex">\(784\)</span> pixel values to a probability distribution over <span class="arithmatex">\(10\)</span> possible classes.</p>
 <div id="ch01.sec5.sub2"></div>
 <h3 id="152-convolutional-neural-network">1.5.2 Convolutional Neural Network</h3>
 <p>A CNN is a special type of FFNN widely used for computer vision applications, such as image classification, image detection, image similarity, semantic segmentation, human pose estimation, action recognition, and image feature extraction. Commercial applications include facial recognition, visual search, optical character recognition for document scanning, X-ray tumor detection, drug discovery, and MRI analysis. Figure <a href="../ch01/#fig:cnn">1.7</a> shows the input to a CNN and the output activations at each layer. Convolutional units are explained in detail in Section <a href="../ch02/#ch02.sec3">2.3</a>, and various CNN models used in production are discussed in Section <a href="../ch03/#ch03.sec2">3.2</a>.</p>
 <div id="fig:cnn"></div>
-<p><img alt="" src="figures/ch01-07.png" />
+<p><img alt="" src="../figures/ch01-07.png" />
 <em>Figure 1.7:</em> A CNN model with several layers maps the input image to a probability distribution across multiple possible labels. Source: [<a href="../biblio/#wikimedia2015">Wik15</a>] (CC BY-SA 4.0).</p>
 <p>CNNs are also used as image feature extractors; the output of one of the last layers (usually the second-to-last layer) is used as a feature vector representing the image. This vector becomes the input to other algorithms, such as an RNN to generate a textual description of the image, or to a reinforcement agent learning to play a video game, or to a recommender system that uses visual similarity.</p>
 <div id="ch01.sec5.sub3"></div>
@@ -218,11 +191,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>An RNN is a directed graph with nodes along a temporal or contextual sequence to capture the temporal dependencies. RNN models are used with sequential data common in language tasks and time-series forecasting. Commercial applications include stock price forecasting, text summarization, next-word recommendation, language translation, simple chatbot tasks, image description generation, speech recognition, and sentiment analysis.</p>
 <p>The RNNs inputs and outputs can vary in length, unlike in MLP and CNN models. For instance, in machine translation, the input and output sentences have a different number of words. An RNN can be unrolled and represented as an FFNN sharing the same weights across the layers, as shown in Figure <a href="../ch01/#fig:rnn">1.8</a>.</p>
 <div id="fig:rnn"></div>
-<p><img alt="" src="figures/ch01-08.png" />
+<p><img alt="" src="../figures/ch01-08.png" />
 <em>Figure 1.8:</em> An RNN topology can be represented as an FFNN topology with the same weights <span class="arithmatex">\(\mathbf{W}\)</span> across all the layers.</p>
 <p>RNN models can be stacked with multiple layers and also bidirectional, as shown in Figure <a href="../ch01/#fig:bi-rnn">1.9</a>. The main building block of an RNN model is a recurrent unit that captures a representation or "memory" of the aggregated relevant data from previous steps. There are three main types of RNN models depending on the type of recurrent units they use: vanilla RNN, LSTM, and GRU units, detailed in Section <a href="../ch02/#ch02.sec5">2.5</a>. In the literature, the term <em>RNN</em> denotes either a <em>vanilla RNN</em> or, more broadly, these three types of models. In this book, when referring to a vanilla RNN model, we explicitly use the term vanilla RNN to prevent confusion. LSTM and GRU models are usually favored over vanilla RNN models for their superior statistical performance.</p>
 <div id="fig:bi-rnn"></div>
-<p><img alt="" src="figures/ch01-09.png" />
+<p><img alt="" src="../figures/ch01-09.png" />
 <em>Figure 1.9:</em> A bidirectional RNN model with two layers.</p>
 <p>RNN models have two significant challenges: (1) capturing the dependencies in long sequences and (2) parallelizing the computation (due to the sequential nature where the output at a given timestep depends on the previous timestep). Using attention layers, detailed in Section <a href="../ch02/#ch02.sec8">2.8</a>, mitigates these challenges. Concatenating <a href="https://arxiv.org/abs/1811.06621">multiple sequential outputs</a> from the first layer in the stack and passing those as inputs to the second layer in the stack improves the computational efficiency in a model with multiple layers [<a href="../biblio/#he2019">HSP+19</a>].</p>
 <div id="ch01.sec5.sub4"></div>
@@ -232,14 +205,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h3 id="155-graph-neural-network">1.5.5 Graph Neural Network</h3>
 <p>NNs operate on data organized as vectors with MLPs, as grids or lattices with CNNs, and as sequences or chains with RNNs and Transformers. A GNN is a generalization of an MLP, CNN, RNN, and Transformer that operates on graphs rather than tensors, as shown in Figure <a href="../ch01/#fig:gnn">1.10</a>. A graph is composed of nodes (also known as vertices) and edges representing the relation between the nodes. GNN nodes learn the properties of the neighboring nodes. Graphs are common in many applications, such as in social networks to represent persons and their connections, in molecular biology to represent atoms and bonds, in recommender systems to represent users, items, and ratings, in telecommunications to represent networks, and in drug discovery to represent the compound structure and protein-enzyme interactions. Graphs of graphs are also common; one example is web document classification with a graph of web documents where the edges are the hyperlinks, and each node is a graph with XML-formatted elements for each document. GNNs provide the structure to learn and make predictions on graphs, often with sparsely labeled data. Given the sparse representation of the <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> in GNNs, it is beneficial to advance work in nonsequential memory access retrieval to accelerate GNNs.</p>
 <div id="fig:gnn"></div>
-<p><img alt="" src="figures/ch01-10.png" />
+<p><img alt="" src="../figures/ch01-10.png" />
 <em>Figure 1.10:</em> A GNN operates on graphs rather than tensors. This GNN has four layers, an input, output, and two hidden layers. Based on [<a href="../biblio/#jadhav2019">Jad19</a>].</p>
 <p>GNNs were <a href="https://ieeexplore.ieee.org/document/4700287">introduced</a> in 2009 and have recently seen astronomical growth in academia [<a href="../biblio/#scarselli2009">SGT+09</a>]. Given the many real-world graph applications, rapid growth in the industry over the next few years is expected. Large-scale recommender systems, such as Pinterest's <a href="https://arxiv.org/abs/1806.01973">PinSage</a>, already use GNNs [<a href="../biblio/#ying2018">YKC+18</a>]. Hyperscalers are developing platforms, such as Alibaba's <a href="https://arxiv.org/abs/1902.08730">AliGraph</a>, Microsoft's <a href="https://www.microsoft.com/en-us/research/publication/neugraph-parallel-deep-neural-network-computation-on-large-graphs/">NeuGraph</a>, and Amazon's Deep Graph Library (<a href="https://arxiv.org/abs/1909.01315">DGL</a>) to facilitate GNN industry adoption [<a href="../biblio/#zhu2019">ZZY+19</a>; <a href="../biblio/#ma2019">MYM+19</a>; <a href="../biblio/#wang2019">WVP+19</a>]. <a href="https://arxiv.org/abs/1903.02428">PyTorch Geometric</a> (<a href="https://pytorch-geometric.readthedocs.io/en/latest/">PyG</a>) is primarily targeting academic research [<a href="../biblio/#fey2019">FL19</a>].</p>
 <div id="ch01.sec5.sub6"></div>
 <h3 id="156-adversarial-network">1.5.6 Adversarial Network</h3>
 <p>An AN or a <a href="https://arxiv.org/abs/1406.2661">generative adversarial network</a> (GAN) consists of two subnetworks: a discriminator and a generator, as shown in Figure <a href="../ch01/#fig:gan">1.11</a> [<a href="../biblio/#goodfellow2014">GPM+14</a>]. During training, they compete in a <a href="https://en.wikipedia.org/wiki/Minimax">minimax</a> game. The generator learns to generate raw data with corresponding statistics to the training set. The discriminator evaluates the candidates as authentic or synthetic (generated). The generator's objective is to increase the error rate of the discriminator. It generates data to fool the discriminator into classifying it as authentic. The discriminator is initially trained with a training dataset. Then it is tuned as it competes with the generator. As the model trains, the generated data becomes more authentic-like, and the discriminator improves at recognizing synthetic data.</p>
 <div id="fig:gan"></div>
-<p><img alt="" src="figures/ch01-11.png" />
+<p><img alt="" src="../figures/ch01-11.png" />
 <em>Figure 1.11:</em> A generative adversarial network has a discriminator and a generator network that compete with each other. Based on [<a href="../biblio/#gharakhanian2017">Gha17</a>].</p>
 <p><a href="https://en.wikipedia.org/wiki/Yann_LeCun">Yann LeCun</a>, likely the most prominent DL scientist, <a href="https://www.youtube.com/watch?v=IbjF5VjniVE">described</a> GANs as "the coolest idea in machine learning in the last twenty years" [<a href="../biblio/#lecun2016">Lec16</a>]. GANs were initially proposed for unsupervised learning and now they are used across all types of learning. <a href="https://arxiv.org/abs/1701.07875">Wasserstein GAN</a> (WGAN) improves the stability of learning the model, and Weng <a href="https://lilianweng.github.io/lil-log/2017/08/20/from-GAN-to-WGAN.html">provides</a> a detailed explanation of the mathematics used in WGAN [<a href="../biblio/#arjovsky2017">ACB17</a>; <a href="../biblio/#weng2017">Wen17</a>].</p>
 <p>GANs are also used for model physics-based simulations in <a href="https://arxiv.org/abs/1705.02355">particle physics</a> and <a href="https://arxiv.org/abs/1801.09070">cosmology</a>, reducing the simulation time by orders of magnitude [<a href="../biblio/#paganini2018">PdN18</a>; <a href="../biblio/#rodriguez2018">RKL+18</a>]. Section <a href="../ch03/#ch03.sec2.sub5">3.2.5</a> discusses various GANs use for image generation.</p>
@@ -247,7 +220,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h3 id="157-autoencoder">1.5.7 Autoencoder</h3>
 <p>An AE is a class of unsupervised learning topology that learns a low-dimensional representation (an encoding) of the input. The AE learns to reconstruct the input data in the output layer and uses the output of the bottleneck layer (usually the middle-most layer) as the low-dimensional representation. The number of units typically decreases in each layer until the bottleneck layer, as shown in Figure <a href="../ch01/#fig:autoencoder">1.12</a>.</p>
 <div id="fig:autoencoder"></div>
-<p><img alt="" src="figures/ch01-12.png" />
+<p><img alt="" src="../figures/ch01-12.png" />
 <em>Figure 1.12:</em> An autoencoder learns to reconstruct the input data in the output layer. The output of the bottleneck layer is often used as a low-dimensional representation of the input.</p>
 <p>AEs are used (1) as a compact (compressed) representation of the input data; (2) as a preprocessing step to a classification problem where the data is first encoded and then passed to the classifier; (3) in a data matching problem by comparing the encoding of two data samples; (4) to denoise data by learning a mapping from a noisy input to a clean output; and (5) as a generative model to generate data using the decoder (known as a <a href="https://en.wikipedia.org/wiki/Autoencoder#Variational_autoencoder_(VAE)">variational autoencoder</a> (VAE)).</p>
 <div id="ch01.sec5.sub8"></div>
@@ -288,11 +261,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>During serving, the model processes a micro-batch. The data is propagated forward through the network to compute the output. Serving is also known as inference since the model is inferring the label of the data sample. Step <span class="arithmatex">\(2\)</span> above is inference; that is, inference is a step in the training process but usually with a smaller batch size and some optimizations specific to serving.</p>
 <p>The following example illustrates the training process. The task is to classify handwritten digits from the <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset using an MLP model [<a href="../biblio/#lecun1998">LBB+98</a>]. Figure <a href="../ch01/#fig:mnist">1.13</a> shows a small subset of the 70,000 gray-scaled <span class="arithmatex">\(28\times 28\)</span> pixel images in the MNIST dataset. Typically with MNIST, 60,000 images are used for training and 10,000 images are used for validation. In practice, a CNN model would be a better choice for image classification, but a simple MLP model is used to introduce some fundamental concepts.</p>
 <div id="fig:mnist"></div>
-<p><img alt="" src="figures/ch01-13.png" /></p>
+<p><img alt="" src="../figures/ch01-13.png" /></p>
 <p><em>Figure 1.13:</em> Examples from the <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset. Each digit image has <span class="arithmatex">\(28\times 28\)</span> pixels. Source: [<a href="../biblio/#wikimedia2017">Wik17</a>] (CC BY-SA 4.0).</p>
 <p>Each layer in the MLP is composed of units (neurons) that linearly combine the weighted outputs or activations from the previous layer plus a bias weight, as shown in Figure <a href="../ch01/#fig:unit">1.14</a> for one unit. The output from this affine transformation is passed to a nonlinear activation function <span class="arithmatex">\(g(\cdot)\)</span>. An <em>activation function</em> refers to the nonlinear function, an <em>activation input</em> is the input to the activation function, and an <em>activation</em> (short for <em>activation output</em>) refers to the output of an activation function. Common activation functions are the rectified linear unit (ReLU) and variants of ReLU, the sigmoid and its generalization, the softmax, and the hyperbolic tangent (tanh), which are all detailed in Section <a href="../ch02/#ch02.sec1">2.1</a>.</p>
 <div id="fig:unit"></div>
-<p><img alt="" src="figures/ch01-14.png" />
+<p><img alt="" src="../figures/ch01-14.png" />
 <em>Figure 1.14:</em> A neural unit at layer <span class="arithmatex">\((l+1)\)</span> applies a nonlinear transformation or function to the weighted sum of the activations from the previous layer <span class="arithmatex">\((l)\)</span>.</p>
 <p>The MLP model used for this digit classification task, shown in Figure <a href="../ch01/#fig:mlp">1.6</a>, has <span class="arithmatex">\(784\)</span> units in the input layer (Layer <span class="arithmatex">\(0\)</span>) corresponding to the number of pixel values in each image. The output layer has <span class="arithmatex">\(10\)</span> units corresponding to the probability distribution of the possible <span class="arithmatex">\(0\)</span>-<span class="arithmatex">\(9\)</span> labels. This MLP has two hidden layers with <span class="arithmatex">\(128\)</span> and <span class="arithmatex">\(32\)</span> units, respectively. The choice for the number of hidden layers and the number of units in each layer requires experimentation. In Section <a href="../ch04/#ch04.sec5">4.5</a>, we discuss techniques to choose an appropriate topology.</p>
 <p>To train the model, the <span class="arithmatex">\(28\times 28\)</span> image pixel values are reordered as a <span class="arithmatex">\(784 \times 1\)</span> vector and normalized to zero-mean and unit-norm (the benefits of normalization are explained in Section <a href="../ch02/#ch02.sec6">2.6</a>). This is the input to the NN and can be thought of as the activations of Layer <span class="arithmatex">\(0\)</span>. The input <span class="arithmatex">\(z^{(1)}_i\)</span> to unit <span class="arithmatex">\(i\)</span> in Layer <span class="arithmatex">\(1\)</span> is the weighted sum of the activations of Layer <span class="arithmatex">\(0\)</span> plus a bias. The activation <span class="arithmatex">\(a_i^{(1)}\)</span> of unit <span class="arithmatex">\(i\)</span> is a nonlinear transformation of the unit's activation input <span class="arithmatex">\(z^{(1)}_i\)</span>: </p>
@@ -306,7 +279,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <div class="arithmatex">\[J(\mathbf{w}) = -\sum_{k=0}^{9} y_k \log(\hat{y}_k),\]</div>
 <p>where <span class="arithmatex">\(\log\)</span> represents the natural logarithm (<span class="arithmatex">\(\log\)</span> base-<span class="arithmatex">\(e\)</span>), <span class="arithmatex">\(y_k\)</span> is <span class="arithmatex">\(1\)</span> if the sample belongs to class <span class="arithmatex">\(k\in [0, 9]\)</span> and <span class="arithmatex">\(0\)</span> otherwise, and <span class="arithmatex">\(\hat{y}_k\)</span> is the model's prediction (as a probability) that the sample belongs to class <span class="arithmatex">\(k\)</span>. Figure <a href="../ch01/#fig:error">1.15</a> depicts the expected and actual output for a sample image corresponding to the digit <span class="arithmatex">\(4\)</span>. In the figure, the model's output <span class="arithmatex">\(\hat{\mathbf{y}}\)</span> incorrectly indicates digit <span class="arithmatex">\(8\)</span> is the most likely inferred interpretation. Additional training iterations are needed to reduce this loss.</p>
 <div id="fig:error"></div>
-<p><img alt="" src="figures/ch01-15.png" />
+<p><img alt="" src="../figures/ch01-15.png" />
 <em>Figure 1.15:</em> A batch of size <span class="arithmatex">\(1\)</span> containing a sample image of the digit <span class="arithmatex">\(4\)</span> is passed through the model. The actual output <span class="arithmatex">\(\mathbf{\hat{y}}\)</span> and the expected output (ground truth) <span class="arithmatex">\(\mathbf{y}\)</span> are used to compute the cost <span class="arithmatex">\(J(\mathbf{w})\)</span>. The model performs poorly in this example and predicts digit <span class="arithmatex">\(8\)</span> with <span class="arithmatex">\(40\%\)</span> probability and digit <span class="arithmatex">\(4\)</span> with <span class="arithmatex">\(10\%\)</span> probability. The cross-entropy loss is <span class="arithmatex">\(-\log(0.1)\)</span>.</p>
 <p>The gradients of the cost with respect to all the layers' activations and weights are computed using the chain rule from the last layer and moving backward layer by layer toward the first layer. Hence, the name backpropagation. The gradients provide a measurement of the contribution of each weight and activation to the cost. In practice, all of the activations for a given batch and a given layer are simultaneously computed using matrix algebra. For these computations, data scientists use software libraries optimized for the particular hardware target.</p>
 <p>During training, the activations are saved for the backpropagation computations. Therefore, hardware for training requires a larger memory capacity than hardware for inference. The required memory is proportional to the batch size.</p>
@@ -332,17 +305,17 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>The core compute of training and serving are multiplications and additions. Compute is inexpensive relative to main memory bandwidth and local memory. <a href="https://en.wikipedia.org/wiki/Moore%27s_law">Moore's Law</a> continues to deliver exponential growth in the number of transistors that can be packed into a given area. Thus, the silicon area required for a set of multiply-accumulate (MAC) units is decreasing. While hardware companies often highlight the theoretical maximum number of operations (ops) per second (ops/s or OPS), the most significant bottlenecks are typically the main memory bandwidth and the local memory capacity. Without sufficient bandwidth, the overall compute efficiency or utilization (the percentage of used compute cycles vs. the total compute capacity) is low for workloads bottlenecked by bandwidth (also known as bandwidth bound), and adding more compute capacity does not improve their performance. Keeping the data close to the compute can alleviate this bottleneck. In order of decreasing access time and increasing die area, the storage types are nonvolatile memory (flash memory, magnetic disk), DRAM (HBM2/E, GDDR6, DDR4, LPDDR4/5), SRAM (scratchpad, cache), and registers. DRAM is often called main memory and SRAM local memory.</p>
 <p>The design of a balanced platform is complicated by the spectrum of workloads with diverse compute, memory, and bandwidth requirements. For instance, the CNNs, MLPs, RNNs, and embeddings used at Facebook (and similar at other hyperscalers) differ by orders of magnitude in these requirements, as shown in Figure <a href="../ch01/#fig:fb-wklds">1.16</a> [<a href="../biblio/#hazelwood2020">Haz20</a>]. Operational intensity is a measure of the number of operations performed per byte read from memory. The last level cache (LLC) miss rate as measured by misses per <span class="arithmatex">\(1000\)</span>-instructions (MPKI) is a standard metric to analyze the local memory (SRAM)'s efficient use and can be a metric for the irregular memory access patterns of a workload.</p>
 <div id="fig:fb-wklds"></div>
-<p><img alt="" src="figures/ch01-16.png" />
+<p><img alt="" src="../figures/ch01-16.png" />
 <em>Figure 1.16:</em> Typical CNNs, MLPs, RNNs, and embeddings differ by orders of magnitude in storage, operational intensity, and memory access irregularities. Based on [<a href="../biblio/#hazelwood2020">Haz20</a>].</p>
 <p>The numerical format is another design consideration that can impact the computational (speed) performance and statistical (accuracy) performance. Figure <a href="../ch01/#fig:precisions">1.17</a> shows various numerical formats, detailed in Section <a href="../ch06/#ch06.sec1">6.1</a>. A numerical representation with fewer bytes can improve the number of operations per cycle and reduce power consumption but may result in lower statistical performance. Training uses single-precision floating-point (<span class="arithmatex">\(fp32\)</span>) with half-precision floating-point (<span class="arithmatex">\(fp16\)</span>) and bfloat16 (<span class="arithmatex">\(bf16\)</span>) rapidly gaining adoption. Inference uses <span class="arithmatex">\(fp16\)</span> and <span class="arithmatex">\(bf16\)</span> with <span class="arithmatex">\(8\)</span>-bit integer (<span class="arithmatex">\(\mathit{int8}\)</span>) gaining adoption for some applications. A research area is developing numerical representations that can better represent values using 8 bits, such as <span class="arithmatex">\(fp8\)</span>, discussed in Section <a href="../ch06/#ch06.sec1">6.1</a>, and can be efficiently implemented in silicon. Other techniques to reduce the memory and bandwidth requirements are increasing the sparsity and compressing the data.</p>
 <div id="fig:precisions"></div>
-<p><img alt="" src="figures/ch01-17.png" />
+<p><img alt="" src="../figures/ch01-17.png" />
 <em>Figure 1.17:</em> Numerical formats. Green is the sign bit. Brown are the exponent bits. Blue are the mantissa bits.</p>
 <p>A MAC unit computes the product of two values and aggregates the result to a running sum of products. The numerical format of the output (the accumulation) may be different from the input. Computations involving dot products, such as in matrix multiplications and convolutions, typically use MACs. When describing MAC units, the notation used is <em>MAC-input-format</em> <span class="arithmatex">\(\rightarrow\)</span> <em>MAC-accumulate-format</em>. For instance, <span class="arithmatex">\(\mathit{int8}\rightarrow \mathit{int32}\)</span> means the <span class="arithmatex">\(\mathit{int8}\)</span> values are multiplied and accumulated as <span class="arithmatex">\(\mathit{int32}\)</span> values. Accumulating values in a large numerical format mitigates numerical overflows.</p>
 <p>Different hardware usages have different requirements. Table <a href="../ch01/#tab:usages">1.1</a> shows the high-level requirements for common usages by hyperscalers: topology design, training established production models (Trn. Prod.), data center inference (Inf. DC), and edge inference (Inf. Edge). In the table, format refers to the number of bits to represent the weights and activations. Training requires more memory and bandwidth than inference to transfer and store the activations. Another use case not shown in Table <a href="../ch01/#tab:usages">1.1</a> is for hardware design, which requires reconfigurable hardware (for example, FPGAs) or hardware simulators.</p>
 <div id="tab:usages"></div>
 <p><em>Table 1.1:</em> Hardware characteristics according to usage.
-<img alt="" src="figures/ta01-01.png" /></p>
+<img alt="" src="../figures/ta01-01.png" /></p>
 <div id="ch01.sec9"></div>
 <h2 id="19-software-stack">1.9 Software Stack</h2>
 <p>Software is critical to a DL system. The software stack is organized as follows:</p>
@@ -454,33 +427,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch02/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch02/" class="btn btn-xs btn-link">
-        Chapter 2: Building Blocks
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../acknowledgments/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../acknowledgments/" class="btn btn-xs btn-link">
-        Acknowledgments
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

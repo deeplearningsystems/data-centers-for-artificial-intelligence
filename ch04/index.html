@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 4: Training a Model - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch04 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -62,33 +62,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch05/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch05/" class="btn btn-xs btn-link">
-        Chapter 5: Distributed Training
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch03/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch03/" class="btn btn-xs btn-link">
-        Chapter 3: Models and Applications
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch4"></div>
 <h1 id="chapter-4-training-a-model">Chapter 4: Training a Model</h1>
@@ -102,20 +75,20 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Underfitting occurs when the model is too small because it has too little learning capacity and cannot properly learn the general characteristics of the data. The symptoms of underfitting are high training error and high test error. The best technique to mitigate underfitting is to use a more complex model. In DL, this means increasing the topology's representative capacity by adding more layers and more weights.</p>
 <p>Overfitting occurs when a model has too much learning capacity and learns to fit the noise in the training data samples or other characteristics unique to the training set. Overfitting happens when using a prodigious model with insufficient training samples. The symptoms of overfitting are low training error and high test error. Figure <a href="../ch04/#fig:overfit">4.1</a> illustrates overfitting with a toy 1D example using linear regression, a simple ML algorithm. Figure <a href="../ch04/#fig:overfit">4.1</a>a shows four training samples (the blue dots) and one validation sample (the green dot) not used during training. The <span class="arithmatex">\(x\)</span>-axis is one feature, such as house size, and the <span class="arithmatex">\(y\)</span>-axis is the label, such as house price. A polynomial function of third or higher-order can perfectly pass through the four training data points. The illustration uses a fourth-order polynomial for simple visualization. Figure <a href="../ch04/#fig:overfit">4.1</a>b shows the model has no training error but has a higher validation error (the squared distance between the red and green dots). A simpler first-order (affine) function does not perfectly pass through all the training data points but has low validation error, as shown in Figure <a href="../ch04/#fig:overfit">4.1</a>c. The red dot shows what each model predicts on the validation sample, and the green dot is the ground truth for that sample. The complex model overfits the training samples; it has zero training error but high validation error compared to the simpler model. Therefore, in this example, the simpler model is preferred.</p>
 <div id="fig:overfit"></div>
-<p><img alt="" src="figures/ch04-01.png" />
+<p><img alt="" src="../figures/ch04-01.png" />
 <em>Figure 4.1:</em> (a) Four training samples (blue dots) and one validation sample (green dot). (b) A fourth-order polynomial function has zero training error but high validation error. (c) A simpler first-order polynomial function has low validation error. The red dot represents the model's prediction.</p>
 <p>Figure <a href="../ch04/#fig:complexity-error">4.2</a> illustrates what happens to the training and validation error as the model grows in complexity. While the training error decreases with more complexity, the validation error first decreases and then increases. A model with complexity left of the dashed line is underfitting, and a model with complexity right of the dashed line is overfitting. The sweet spot is right at the dashed line, where the model has the lowest validation error. The model is complex enough to learn the characteristics of the data to avoid underfitting but simple enough to avoid overfitting.</p>
 <div id="fig:complexity-error"></div>
-<p><img alt="" src="figures/ch04-02.png" />
+<p><img alt="" src="../figures/ch04-02.png" />
 <em>Figure 4.2:</em> The ideal level of model complexity is where the validation error is the lowest.</p>
 <p>The validation error is much more important than the training error because it represents the expected error when the model deploys in production. In ML theory, minimizing these errors is known as the <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_trade-off">bias-variance tradeoff</a>. A high training error indicates high bias or underfitting. A high validation error and low training error indicates high variance or overfitting. It is always critical to determine the source of poor performance (overfitting or underfitting) before prescribing a solution.</p>
 <p>An interesting and counterintuitive phenomenon unique to various DL topologies is the <a href="https://openreview.net/pdf?id=B1g5sA4twr">deep double descent</a>, illustrated in Figure <a href="../ch04/#fig:double-descent">4.3</a> [<a href="../biblio/#nakkiran2020">NKB+20</a>]. As the topology complexity increases (that is, as the model grows in depth), the validation error first follows the expected trajectory of decreasing and then increasing, but then it begins to decrease again. That is, increasing the size of the topology can lower the test error in some scenarios. The exact reason is not well understood as complex models should result in overfitting. A tentative (hand-wavy) reason is that very large topologies can explore a larger solution space leading to superior solutions. Understanding this phenomenon and the impact on the recommended training techniques is ongoing research. Most practitioners safely ignore this phenomenon or are not aware of it.</p>
 <div id="fig:double-descent"></div>
-<p><img alt="" src="figures/ch04-03.png" />
+<p><img alt="" src="../figures/ch04-03.png" />
 <em>Figure 4.3:</em> An illustration of the deep double descent observed in some DL topologies; as the complexity increases, the validation error decreases and then increases as expected, but then it begins to decrease again. Based on [<a href="../biblio/#nakkiran2020">NKB+20</a>].</p>
 <p>Another source of poor generalization may be <a href="https://www.mitpressjournals.org/doi/10.1162/neco.1997.9.1.1">sharp minima</a> [<a href="../biblio/#hochreiter1997">HS97</a>]. This hypothesis is based on empirical evidence. Figure <a href="../ch04/#fig:flat-sharp">4.4</a> illustrates the intuition with a toy 1D example using only one weight or feature (the <span class="arithmatex">\(x\)</span>-axis). Training involves iteratively updating the model and moving to an area in the solution space with lower training error. The training cost function (solid blue line) is similar but slightly different than the testing cost function (dotted green line). This difference is because the test samples are similar but not identical to the training samples. In this example, the flat minimum solution and the sharp minimum solution have the same training error but different test errors. These errors are represented by <span class="arithmatex">\(J(w)\)</span> along the <span class="arithmatex">\(y\)</span>-axis. The flat minimum solution has a low test error, while the sharp minimum solution has a high test error (the green dot). A measurement of flatness is the trace of the Hessian; a small trace indicates a flat minimum [<a href="../biblio/#dong2019-b">DYC+19</a>].</p>
 <div id="fig:flat-sharp"></div>
-<p><img alt="" src="figures/ch04-04.png" />
+<p><img alt="" src="../figures/ch04-04.png" />
 <em>Figure 4.4:</em> In this toy example, the cost function with respect to the test dataset is slightly shifted from the cost function with respect to the training dataset. The sharp minimum solution has a high test error. The flat minimum has a small test error. Based on [<a href="../biblio/#keskar2017">KMN+17</a>].</p>
 <p>While a flat minimum generalizes better to unseen data, a sharp minimum does not necessarily <a href="https://arxiv.org/pdf/1804.07612.pdf">indicate</a> overfitting, and a flat minimum does not necessarily indicate low validation error [<a href="../biblio/#masters2018">ML18</a>]. Also, the functions resulting in a flat minimum can be altered to result in a sharp minimum without affecting the validation error, <a href="https://arxiv.org/abs/1703.04933">demonstrating</a> the hypothesis above does not always hold [<a href="../biblio/#dinh2017">DPB+17</a>].</p>
 <p>There are various techniques to improve generalization, often by simplifying (regularizing) the model. The most common ones are as follows:</p>
@@ -169,11 +142,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>where <span class="arithmatex">\(\mathbf{w}\)</span> represents all the weights in the model and <span class="arithmatex">\(\alpha\)</span> is the learning rate (LR). Note that a weight decay term (see Section <a href="#ch4.sec1">1.1</a>) is used in practice; it is excluded from all the equations in this section to simplify notation.</p>
 <p>The LR controls the change of the model in response to the gradient and is the most <a href="https://arxiv.org/abs/1206.5533">critical</a> hyperparameter to tune for numerical stability [<a href="../biblio/#bengio2012">Ben12</a>]. In Section <a href="../ch04/#ch04.sec5.sub4">4.5.4</a>, we provide recommendations on tuning this and other hyperparameters. Figure <a href="../ch04/#fig:gd">4.5</a> shows a GD update toy example in a 1D space using different LRs. A high LR can cause the model to diverge, where the cost increases rather than decreases. A small LR can result in longer-than-needed number of convergence steps and training time. A good LR results in proper progress toward the minimum (the green arrow in the figure).</p>
 <div id="fig:gd"></div>
-<p><img alt="" src="figures/ch04-05.png" />
+<p><img alt="" src="../figures/ch04-05.png" />
 <em>Figure 4.5:</em> Gradient descent update using LRs that are (red arrows) too large or too small, and (green arrow) good enough.</p>
 <p>In SGD or, more precisely, mini-batch gradient descent (MBGD), the dataset is divided into several batches. In statistics literature, SGD means MBGD with a batch size of <span class="arithmatex">\(1\)</span>, but in most DL literature and in this book, SGD refers to MBGD with any arbitrary batch size less than the training dataset. When the batch size equals the full-batch, SGD becomes GD, and one epoch equals one training iteration. In SGD, the gradient used to update the model is computed with respect to a mini-batch (as opposed to the entire dataset), as shown in Figure <a href="../ch04/#fig:sgd">4.6</a>, and otherwise, the implementation of SGD and GD are equivalent.</p>
 <div id="fig:sgd"></div>
-<p><img alt="" src="figures/ch04-06.png" />
+<p><img alt="" src="../figures/ch04-06.png" />
 <em>Figure 4.6:</em> The dataset is broken into <span class="arithmatex">\(M\)</span> batches, and the weight vector (two dimensions in this toy example) is updated using the gradient computed with respect to the cost associated with a batch. The progress toward the minimum (the inner oval) is not smooth (unlike in GD) but faster than GD: for every <span class="arithmatex">\(1\)</span> GD step, SGD takes <span class="arithmatex">\(M\)</span> steps.</p>
 <p>There are two main challenges with GD and large-batch SGD. First, each step or iteration is computationally expensive as it requires computing the cost over a large number of samples. Second, the optimizer may converge to a sharp minimum solution (rather than stuck at a saddle point as <a href="https://arxiv.org/abs/1406.2572">previously thought</a>) that often <a href="https://arxiv.org/abs/1804.07612">does not generalize</a>, as shown in Figure <a href="../ch04/#fig:flat-sharp">4.4</a> [<a href="../biblio/#masters2018">ML18</a>; <a href="../biblio/#yao2018">YGL+18</a>; <a href="../biblio/#dauphin2014">DPG+14</a>].</p>
 <p>The Hessian (this is the second derivative in 1D) can be used to analyze the curvature of the objective function along the various dimensions to determine if a solution is in a flat or sharp minimum. Smaller absolute eigenvalues indicate a flatter curvature in the corresponding dimension, and the average Hessian trace <a href="https://arxiv.org/abs/1911.03852">provides</a> a metric for the average curvature across all dimensions; a higher trace value indicates a sharp minimum [<a href="../biblio/#dong2019-b">DYC+19</a>].</p>
@@ -181,15 +154,15 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>The batch size is an important hyperparameter to tune. A larger batch size has higher compute utilization because there is more data reuse; that is, the compute-to-data-read ratio is higher for larger batches. However, using very large batches suffers from the same challenges as GD and requires meticulous tuning to avoid converging to a sharp minimum. Still, using a micro-batch is not ideal because the computational resources are tipically underutilized. Furthermore, micro-batches <a href="https://arxiv.org/abs/1702.03275">do not</a> have sufficient statistics to properly use batch normalization [<a href="../biblio/#ioffe2017">Iof17</a>]. There is a sweet spot of a batch size where it is large enough to use the hardware compute units efficiently and small enough for the model to properly converge to a flat minimum without too much hyperparameter tuning.</p>
 <p>Shallue et al. <a href="https://arxiv.org/abs/1811.03600">demonstrated</a> empirically across several models and datasets, that for a given optimizer and a model, there are three batch size regions. There is a perfect scaling region, where the batch size and LR proportionally increase and the number of training iterations proportionally decreases. There is a diminishing-returns region, where increasing the batch size decreases the number of iterations but not proportionally. And there is a stagnation region, where increasing the batch size provides minimal to no benefits. The stagnation occurs because the gradients computed with a large-batch have low variance. They already closely approximate the GD gradient, and increasing the batch size further does not result in significantly different gradients. Furthermore, as already discussed, very large batches may converge to sharp minima. Figure <a href="../ch04/#fig:bs-regions">4.7</a> captures some of their results on three popular models and datasets and Table <a href="../ch04/#tab:bs-regions">4.1</a> summarizes the results in the figure [<a href="../biblio/#shallue2019">SLA+19</a>]. In Section <a href="../ch04/#ch04.sec5.sub4">4.5.4</a>, we discuss hyperparameter tuning, which includes choosing a batch size.</p>
 <div id="fig:bs-regions"></div>
-<p><img alt="" src="figures/ch04-07.png" />
+<p><img alt="" src="../figures/ch04-07.png" />
 <em>Figure 4.7:</em> The number of training steps required to meet the expected training and validation error as a function of batch size for three models. Dotted line denotes perfect scaling. See Table <a href="../ch04/#tab:bs-regions">4.1</a> for the high-level summary. Source: [<a href="../biblio/#shallue2019">SLA+19</a>] (CC BY-SA 4.0).</p>
 <div id="tab:bs-regions"></div>
 <p><em>Table 4.1:</em> Batch size scaling regions across the three models observed in Figure 4.7.
-<img alt="" src="figures/ta04-01.png" /></p>
+<img alt="" src="../figures/ta04-01.png" /></p>
 <p>Training iterations should (on average) decrease the training error. A plateau training error indicates that the solution is bouncing along the edges of the objective function and no longer converging. Decreasing the LR can help the error continue to decrease and converge to a solution closer to the local minimum. A <a href="https://arxiv.org/abs/1608.03983">better</a> approach may be to use a <a href="https://arxiv.org/abs/1506.01186v6">cyclical LR</a> between a user-set high and low LR to better explore the solution space, in <a href="https://arxiv.org/abs/1803.05407">particular</a> toward the later part of training [<a href="../biblio/#loshchilov2017">LH17</a>; <a href="../biblio/#smith2017">Smi17</a>; <a href="../biblio/#izmailov2019">IPG+19</a>]. Each learning cycle starts at the high LR, which decreases with each iteration. After reaching the low LR, another learning cycle starts (at the high LR). This technique can be applied with all the optimizers.</p>
 <p><a href="https://www.ncbi.nlm.nih.gov/pubmed/12662723">SGDM</a> improves the speed of convergence over SGD alone [<a href="../biblio/#qian1999">Qia99</a>]. Most training in the literature that claims SGD actually used SGDM. That is, the term <em>SGD</em> is often an alias for SGDM in published literature but not in this chapter to avoid confusion. SGD alone makes slow progress in ravines (areas where the partial derivative in one dimension is much higher than other dimensions), as shown in Figure <a href="../ch04/#fig:ravine">4.8</a>. Ravines are prevalent when optimizing over millions of dimensions, which is common in DL models.</p>
 <div id="fig:ravine"></div>
-<p><img alt="" src="figures/ch04-08.png" />
+<p><img alt="" src="../figures/ch04-08.png" />
 <em>Figure 4.8:</em> Toy example of a 2D space with a ravine. (a) SGD makes slow progress. (b) SGDM makes faster progress toward the minimum. Based on [<a href="../biblio/#orr1999">Orr99</a>].</p>
 <p>SGDM accelerates SGD in the direction of the exponential decaying average of past gradients, also known as the <em>first moment</em> or just <em>moment</em>, and dampens oscillations. Rather than directly modifying the weights, the gradients modify this moment, and the moment is then used to update the weights as follows: </p>
 <div class="arithmatex">\[\begin{aligned} \mathbf{g} &amp; = \nabla_\mathbf{w} J(\mathbf{w}) \\ \mathbf{m} &amp; := \beta \cdot \mathbf{m} + (1-\beta) \cdot \mathbf{g} \\ \mathbf{w} &amp; := \mathbf{w} - \alpha \cdot \mathbf{m}, \end{aligned}\]</div>
@@ -217,7 +190,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <div class="arithmatex">\[\begin{aligned} \alpha^{(l)} &amp; = \frac{||\mathbf{w}^{(l)}||}{||\mathbf{r}^{(l)}||} \\ \mathbf{w}^{(l)} &amp; := \mathbf{w}^{(l)} - \alpha_0 \cdot \alpha^{(l)} \cdot \mathbf{r}^{(l)}.\end{aligned}\]</div>
 <p>Other influential optimizers are <a href="http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf">AdaGrad</a> (in particular, for sparse data), <a href="https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">RMSProp</a>, <a href="https://arxiv.org/abs/1212.5701">AdaDelta</a>, <a href="https://openreview.net/forum?id=OM0jvwB8jIp57ZJjtNEZ">Nadam</a>, Nesterov accelerated gradient (<a href="https://ieeexplore.ieee.org/document/7966082">NAG</a>), <a href="https://arxiv.org/abs/1711.05101">AdamW</a>, <a href="https://arxiv.org/abs/1904.09237">AMSGrad</a>, and <a href="https://arxiv.org/abs/1905.11286">NovoGrad</a> [<a href="../biblio/#duchi2011">DHS11</a>; <a href="../biblio/#hinton2012">HSS12</a>; <a href="../biblio/#zeiler2012">Zei12</a>; <a href="../biblio/#dozat2016">Doz16</a>; <a href="../biblio/#botev2017">BLB17</a>; <a href="../biblio/#loshchilov2019">LH19</a>; <a href="../biblio/#reddi2019">RKK19</a>; <a href="../biblio/#ginsburg2020">GCH+20</a>]. Figure <a href="../ch04/#fig:pedigree">4.9</a> shows an estimated pedigree of optimizers. These are first-order optimizers. AdaHessian is a second-order optimizer that converges to a better minimum than first-order optimizers without the prohibited computational cost of other second-order optimizers [<a href="../biblio/#yao2020">YGS+20</a>]. Given the promising results, AdaHessian adoption may grow.</p>
 <div id="fig:pedigree"></div>
-<p><img alt="" src="figures/ch04-09.png" />
+<p><img alt="" src="../figures/ch04-09.png" />
 <em>Figure 4.9:</em> A pedigree of optimization algorithms.</p>
 <p>Stochastic weight averaging (<a href="https://arxiv.org/abs/1803.05407">SWA</a>) and LookAhead (<a href="https://arxiv.org/abs/1907.0861">LA</a>) are complementary techniques that improve generalization by converging to a better (flatter) minimum [<a href="../biblio/#izmailov2019">IPG+19</a>; <a href="../biblio/#zhang2019">ZLH+19</a>]. The motivation for SWA is that during the later training iterations, SGD bounces between the borders of a wider minimum. The average of the bounces is a better solution. SWA maintains a separate set of averaged weights <span class="arithmatex">\(\mathbf{w}_{\mathit{SWA}}\)</span> in addition to the regular set of weights <span class="arithmatex">\(\mathbf{w}\)</span> used by the optimizer. <span class="arithmatex">\(\mathbf{w}_{\mathit{SWA}}\)</span> is initialized with <span class="arithmatex">\(\mathbf{w}\)</span> after completing at least <span class="arithmatex">\(75\%\)</span> of the training iterations. Then, after completing several iterations, <span class="arithmatex">\(\mathbf{w}_{\mathit{SWA}}\)</span> is updated as follows: </p>
 <div class="arithmatex">\[\mathbf{w}_{\mathit{SWA}} := \frac{\mathbf{w}_{\mathit{SWA}} \cdot n_{\mathit{cycle}} + \mathbf{w}}{n_{\mathit{cycle}} + 1},\]</div>
@@ -238,7 +211,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>which needs to be computed for all the weights in a layer and for all the layers of the topology. Each partial derivative is a metric of how a change in the respective weight changes the cost. The optimizer specifies how to nudge each weight to decrease the cost.</p>
 <p>Figure <a href="../ch04/#fig:backprop">4.10</a> illustrates how backpropagation works in a toy model to compute one such partial derivative, specifically <span class="arithmatex">\(\frac{\partial \mathcal{L}}{\partial w_{32}^{(0)}}\)</span>, where <span class="arithmatex">\(\mathcal{L}=J(\mathbf{w})\)</span> to simplify the notation. This partial derivative depends on the next layer's gradient, which depends on the following layer's gradient, and so on. The partial derivative in the color boxes are computed from the forward propagation equations, and their numerical values can be plugged into the chain of equations to determine <span class="arithmatex">\(\frac{\partial \mathcal{L}}{\partial w_{32}^{(0)}}\)</span>. Note that the hidden layer assumes a ReLU activation function. In practice, the partial derivatives for an entire layer are computed as a group using matrix algebra.</p>
 <div id="fig:backprop"></div>
-<p><img alt="" src="figures/ch04-10.png" />
+<p><img alt="" src="../figures/ch04-10.png" />
 <em>Figure 4.10:</em> Using the chain rule to compute the partial derivative of the cost with respect to a weight in the model. For simplicity, the bias is omitted from the figure.</p>
 <div id="ch04.sec5"></div>
 <h2 id="45-training-techniques">4.5 Training Techniques</h2>
@@ -394,7 +367,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 </ul>
 <div id="fig:finetune"></div>
-<p><img alt="" src="figures/ch04-11.png" />
+<p><img alt="" src="../figures/ch04-11.png" />
 <em>Figure 4.11:</em> High-level guidance on when and what to fine-tune. When the new task's dataset is similar to the original dataset, only the last upper layers should be retrained. When the datasets are different, then training more layers is required. If the new task's dataset is sufficiently large, then it is best to retrain the entire model.</p>
 <p>As a simple example, the following steps can be used to design and train a <a href="https://www.kaggle.com/c/dogs-vs-cats">cats vs. dogs</a> classifier (in practice, more recent models have better statistical performance):</p>
 <ol>
@@ -412,7 +385,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 </ol>
 <div id="fig:transfer"></div>
-<p><img alt="" src="figures/ch04-12.png" />
+<p><img alt="" src="../figures/ch04-12.png" />
 <em>Figure 4.12:</em> Fine-tuning the VGG-16 model for the task of dogs vs. cats classification initially trained on the ImageNet-<span class="arithmatex">\(1K\)</span> dataset.</p>
 <p>Fine-tuning is also commonly used after making some modifications to the model, such as after pruning or quantizing the weights (discussed in Chapter <a href="../ch06/#ch06">6</a>). There are <a href="https://ieeexplore.ieee.org/document/5288526">other types</a> of transfer learning techniques, such as <a href="https://arxiv.org/abs/1812.11806">domain adaptation</a>, {zero, one, few}-<a href="https://arxiv.org/abs/1904.05046">shot learning</a>, and <a href="https://arxiv.org/abs/1706.05098">multitask learning</a> [<a href="../biblio/#pan2010">PY10</a>; <a href="../biblio/#kouw2019">KL19</a>; <a href="../biblio/#wang2019-d">WYK+19</a>; <a href="../biblio/#ruder2017">Rud17</a>]. These techniques have limited industry adoption.</p>
 <div id="ch04.sec7"></div>
@@ -427,33 +400,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch05/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch05/" class="btn btn-xs btn-link">
-        Chapter 5: Distributed Training
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch03/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch03/" class="btn btn-xs btn-link">
-        Chapter 3: Models and Applications
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

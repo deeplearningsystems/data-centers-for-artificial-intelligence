@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 7: Hardware - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch07 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -63,33 +63,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch08/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch08/" class="btn btn-xs btn-link">
-        Chapter 8: Compiler Optimizations
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch06/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch06/" class="btn btn-xs btn-link">
-        Chapter 6: Reducing the Model Size
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch7"></div>
 <h1 id="chapter-7-hardware">Chapter 7: Hardware</h1>
@@ -107,7 +80,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 </ul>
 <div id="fig:comp-bw"></div>
-<p><img alt="" src="figures/ch07-01.png" />
+<p><img alt="" src="../figures/ch07-01.png" />
 <em>Figure 7.1:</em> Computational capacity is growing faster than memory bandwidth as measured by the capacity of the top supercomputer. Based on [<a href="../biblio/#lindstrom2018">LHL+18</a>].</p>
 <p>Moore's Law continues to deliver exponential growth in the number of transistors that can be packed into a given area, albeit at a slower rate than before. Computer architects are finding new ways to extract performance from this exponential growth. However, as a consequence of this exponential growth, compute and memory capacity are increasing much faster than memory bandwidth, which is the bottleneck in many DL workloads. The slow growth in bandwidth relative to compute is known as the <a href="https://dl.acm.org/doi/pdf/10.1145/216585.216588">memory wall</a> or <a href="https://dl.acm.org/doi/10.1145/1555815.1555801">bandwidth wall</a>, where compute units are idled waiting for data [<a href="../biblio/#wulf1995">WM95</a>; <a href="../biblio/#rogers2009">RKB+09</a>].</p>
 <p>As transistors shrink, their power density no longer stays constant but rather increases, which is known as the end of <a href="https://ieeexplore.ieee.org/document/1050511">Dennard's scaling</a> (discussed in Section <a href="../ch07/#ch07.sec1">7.1</a>) [<a href="../biblio/#dennard1974">DGY+74</a>]. The amount of <a href="https://en.wikipedia.org/wiki/Dark_silicon">dark silicon</a>, where transistors cannot operate at the nominal voltage, is increasing. This dark silicon motivates the exploitation of transistors for multicore processors and domain-specific circuitry. Some of the existing techniques to increase performance are (detailed in Section <a href="../ch07/#ch07.sec4">7.4</a>):</p>
@@ -136,7 +109,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Table <a href="../ch07/#tab:energy-area">7.1</a> compares the energy for various operators, including data fetching, in a <a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture">von Neumann architecture</a>. DRAM access can cost two orders of magnitude more power and processing cycles over local SRAM. It is crucial to minimize DRAM accesses to improve performance and reduce power consumption.</p>
 <div id="tab:energy-area"></div>
 <p><em>Table 7.1:</em> Required energy and silicon area for various operator units in a 45 nm technology node. Adopted from <a href="../biblio/#horowitz2014">Hor14</a> and <a href="../biblio/#dally2017">Dal17</a>.
-<img alt="" src="figures/ta07-01.png" /></p>
+<img alt="" src="../figures/ta07-01.png" /></p>
 <p>A smaller numerical representation compute unit requires less area and energy; thus, more units can be added to a given die. The amount of area needed for floating-point multipliers grows quadratically with the number of mantissa bits and linearly with the number of exponent bits.</p>
 <p>In Section <a href="../ch01/#ch01.sec8">1.8</a>, we introduced (1) the high-level requirements for the different DL usages: hardware design, topology design, training in production, serving in data centers, and serving in edge devices; and (2) the important hardware features and MAC combinations for training and serving production hardware. Training requires storing and retrieving the activations across all the layers, which typically involves reading and writing several GB of data (the activations) from and to DRAM. In training CNNs, the size of the activations typically has a more significant impact on the total memory requirements than the size of the model. To illustrate, U-Net (used for medical 3D image classification) has <span class="arithmatex">\(20\)</span> million weights but requires <span class="arithmatex">\(256\)</span> GB of memory. Conversely, Megatron-LM-1.2B has <span class="arithmatex">\(1.2\)</span> billion weights but requires <span class="arithmatex">\(32\)</span> GB of memory. Given the amount of data transfer, using a high bandwidth DRAM, such as HBM2E, for training tasks is beneficial. An advantageous design choice is to put enough SRAM to store the model and the activations associated with two consecutive layers in training and inference. Note that the size of the activations is proportional to the batch size, which is usually small for inference.</p>
 <p>As much as possible, data center managers want a homogeneous and manageable data center leveraging specialized accelerators only when absolutely needed. However, given the <a href="https://openai.com/blog/ai-and-compute/">exponential</a> demand for compute and the end of Dennard's scaling, the demand for dedicated DL processors is increasing. Hardware designers should be aware of what hyperscalers value:</p>
@@ -209,11 +182,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>where <span class="arithmatex">\(I_{\mathit{leakage}}\)</span> is the current leakage. Dennard's scaling ended in the mid-2000s due to the increases in static power. Today, reducing the voltage in smaller transistors increases current leakage and increases the power density. Instead of having more clock cycles per second (higher frequency), the focus today is on increasing the instructions per cycle (IPC) or operations per cycle; that is, doing more work per cycle.</p>
 <p>Decreasing the voltage increases the <em>static</em> power exponentially. Increasing the voltage increases the <em>dynamic</em> power exponentially, as shown in Figure <a href="../ch07/#fig:power">7.2</a>. There is an ideal voltage that minimizes the sum of the static and dynamic power.</p>
 <div id="fig:power"></div>
-<p><img alt="" src="figures/ch07-02.png" />
+<p><img alt="" src="../figures/ch07-02.png" />
 <em>Figure 7.2:</em> Total power requirement (red curve) across various voltages. Low voltage results in high static power due to current leakage. High voltage results in high dynamic power. There is an optimal voltage <span class="arithmatex">\(V^{*}\)</span> where the total power usage is minimized.</p>
 <p>The propagation time <span class="arithmatex">\(T_{\mathit{prop}}\)</span> of the current through all the logic gates in its path needs to be less than <span class="arithmatex">\(1\)</span> clock cycle. As the frequency increases past some <span class="arithmatex">\(f_{\min}\)</span>, higher voltage is required to operate the transistor gates more rapidly. This increase in voltage is approximately linearly proportional to the increase in frequency, as shown in Figure <a href="../ch07/#fig:voltage">7.3</a>. The voltage to operate at <span class="arithmatex">\(f_{\min}\)</span> is <span class="arithmatex">\(V_{\min}\)</span>. Increasing the frequency past <span class="arithmatex">\(f_{\min}\)</span> increases the power to the cube of the frequency increase: <span class="arithmatex">\(\Delta P\propto (\Delta V)^2 \Delta f \propto (\Delta f)^3\)</span>.</p>
 <div id="fig:voltage"></div>
-<p><img alt="" src="figures/ch07-03.png" />
+<p><img alt="" src="../figures/ch07-03.png" />
 <em>Figure 7.3:</em> Increasing the frequency past <span class="arithmatex">\(f_{\min}\)</span> linearly increases the required voltage, and (not shown) cubically increases the dynamic power.</p>
 <p>Power generates heat, and too much heat can damage the circuits. There is a maximum power that a system can operate without damaging the circuitry, and this limits the maximum frequency. In fact, over the past decade, the maximum frequency of high-end server processors has not changed much. Servers continue to operate in the <span class="arithmatex">\(2\)</span>-<span class="arithmatex">\(4\)</span> GHz range. Another reason to cap the maximum frequency is related to the maximum distance the electrical current travels in the circuitry. The time it takes to travel this distance must be less than one clock tick, which can be an issue for large circuits when operating at high frequencies.</p>
 <p>The primary contributors to the increased dark silicon are the exponential growth in transistors per area, current leakage, and power constraints. Multicore processors and specialized computing are two methods to mitigate dark silicon. These methods have enable the continued growth in computational capacity at the expense of two new challenges: Amdahl's law and the memory wall.</p>
@@ -223,7 +196,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>These limitations and overheads are motivations to reduce the scope of hardware-based cache coherence and to use domain-specific DL processors for embarrassingly parallel (minimal communication/synchronization between parallel elements) workloads with predictable operations. Solutions still require a way to operate on the right data, and this drives a combination of application-specific hardware and <a href="https://ieeexplore.ieee.org/document/6616543">software-based</a> "coherence" [<a href="../biblio/#alvarez2015">AVG+15</a>; <a href="../biblio/#tavarageri2016">TKT+16</a>; <a href="../biblio/#ashby2011">ADC11</a>].</p>
 <p>Figure <a href="../ch07/#fig:processor-trends">7.4</a> provides a high-level view of the trends in microprocessors. The number of transistors per area continues to grow exponentially, and the number of logical cores is following that same growth path; new transistors are primarily used for additional cores. In the future, the growth in the number of cores may slow down, and more transistors utilized for domain-specific acceleration. While frequency has already plateaued, single-thread performance continues to increase due to better instruction pipeline, improved branch prediction, out-of-order execution, larger instruction vectors, and specialized execution units, resulting in more IPC.</p>
 <div id="fig:processor-trends"></div>
-<p><img alt="" src="figures/ch07-04.png" />
+<p><img alt="" src="../figures/ch07-04.png" />
 <em>Figure 7.4:</em> Trends in microprocessors. Source: [<a href="../biblio/#rupp2020">Rup20</a>] (CC BY-SA 4.0 license).</p>
 <div id="ch07.sec2"></div>
 <h2 id="72-memory-and-bandwidth">7.2 Memory and Bandwidth</h2>
@@ -271,7 +244,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>HBM2 is the defacto DRAM memory for GPUs and accelerators targeting training, HPC, and cryptomining. It is available in the Nvidia {P, V, A}100 GPUs and Habana Gaudi. Google TPU v2 and v3 (and likely v4) use HBM but have not made public the specific HBM generation.</p>
 <p>HBM2 has a <span class="arithmatex">\(1024\)</span>-bit wide interface across <span class="arithmatex">\(8\)</span> channels per stack, and (in the latest specification) <span class="arithmatex">\({\sim} 2.4\)</span> GT/s transfer rates (each bus lane transfers <span class="arithmatex">\({\sim} 2.4\)</span> Gbps), for a total of <span class="arithmatex">\(307\)</span> GB/s per DRAM stack or package. It provides higher bandwidth and uses less power relative to other DRAM memories. HBM memory connects to the processor via a purpose-built silicon chip called an <em>interposer</em> and mounts in the package substrate, as illustrated in Figure <a href="../ch07/#fig:hbm">7.5</a>. The shorter wires allow for higher bandwidth at lower power. Given that HBM uses a stack of memory chips, it is referred to as 2.5D memory. An issue with HBM is the high price to manufacture the interposer, in part, because 2.5D is a relatively new memory technology. The cost may decrease as the technology gains broad adoption.</p>
 <div id="fig:hbm"></div>
-<p><img alt="" src="figures/ch07-05.png" />
+<p><img alt="" src="../figures/ch07-05.png" />
 <em>Figure 7.5:</em> HBM memory connected to the processor via an interposer. (a) Top view. (b) Side view. Based on [<a href="../biblio/#samsung2016">Sam16</a>].</p>
 <h4 id="gddr">GDDR</h4>
 <p>GDDR6 is used in the latest gaming graphics cards and data center inference GPUs, such as the Nvidia T4, and may expand to other inference accelerators. Compared to HBM, GDDR is less expensive and has lower latency, but it also has lower bandwidth and lower memory density.</p>
@@ -283,7 +256,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>In an <span class="arithmatex">\(N\)</span>-way associative cache, the number of sets is <span class="arithmatex">\(S_N = \mathit{sizeof}(\text{cache})/(N \times \mathit{sizeof}(\text{cache line}))\)</span> with <span class="arithmatex">\(W_N=\mathit{sizeof}(\text{cache})/N\)</span> as the interval of the main memory addresses that map to the same set. That is, equal addresses modulo <span class="arithmatex">\(W_N\)</span> share the same cache set.</p>
 <p>Figure <a href="../ch07/#fig:l1">7.6</a> illustrates the cache lines in an <span class="arithmatex">\(8\)</span>-way set-associative <span class="arithmatex">\(L1\)</span> cache with <span class="arithmatex">\(S_N=64\)</span> sets, common in modern CPUs. Each cache line is <span class="arithmatex">\(64\)</span> bytes, the total cache size is <span class="arithmatex">\(64\times 64\times 8=32 \mathit{KiB}\)</span> (<span class="arithmatex">\(Ki=2^{10}\)</span>), and the interval of the main memory addresses that map to the same set is <span class="arithmatex">\(W_N=32Ki/8=4096\)</span> bytes. Note that in this discussion, <span class="arithmatex">\(L1\)</span> cache refers to <span class="arithmatex">\(L1d\)</span> (data) cache.</p>
 <div id="fig:l1"></div>
-<p><img alt="" src="figures/ch07-06.png" />
+<p><img alt="" src="../figures/ch07-06.png" />
 <em>Figure 7.6:</em> A representation of an <span class="arithmatex">\(8\)</span>-way set-associative cache with <span class="arithmatex">\(64\)</span> sets.</p>
 <p>The analysis below assumes the matrices used in a program are organized in main memory in column-major order. That is, consecutive values along a matrix's column are consecutive in memory. Furthermore, the number of elements in each column (that is, the number of rows) is called the leading dimension of the matrix.</p>
 <p>Data reuse is critical to increasing matrix-multiply (GEMM) performance. A common technique in a GEMM operator is to access the matrices' data in blocks that fit in the cache and to use those values for several computations before accessing another block. However, when a matrix with leading dimensions of <span class="arithmatex">\(1024\)</span> <span class="arithmatex">\(fp32\)</span> values (<span class="arithmatex">\(4096\)</span> bytes) maps to the <span class="arithmatex">\(L1\)</span> cache, all the elements of a given row map to the same cache set, and after accessing <span class="arithmatex">\(8\)</span> elements of a row, the set is full. A cache line is evicted to access another value in the row. Specifically, when the leading dimension is <span class="arithmatex">\(1024\)</span> and a block of <span class="arithmatex">\(16\)</span> rows by <span class="arithmatex">\(k\)</span> columns is accessed (that is, <span class="arithmatex">\(16k\)</span> <span class="arithmatex">\(fp32\)</span> values), the whole block maps to only one set (16 <span class="arithmatex">\(fp32\)</span> values is 64 bytes or one cache line). If <span class="arithmatex">\(k&gt;8\)</span>, the matrix block is evicted from cache every time it is accessed, which results in higher cache misses making caching less effective and reducing the GEMM performance. Using a leading dimension of <span class="arithmatex">\(512\)</span> or <span class="arithmatex">\(256\)</span>, the <span class="arithmatex">\(16\times k\)</span> block maps to <span class="arithmatex">\(2\)</span> or <span class="arithmatex">\(4\)</span> sets (out of <span class="arithmatex">\(64\)</span>), respectively, leading to slightly better but still poor GEMM performance.</p>
@@ -310,7 +283,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>In the literature, OI analyses sometimes assumes this best scenario, making OI independent of hardware. In practice, however, the OI depends on the memory hierarchy.</p>
 <p>Figure <a href="../ch07/#fig:roofline">7.7</a> shows a roofline plot. The maximum attainable OPS for a kernel is the <span class="arithmatex">\(\min( \mathit{bandwidth} \times \mathit{OI}, \mathit{peak}\ \mathit{OPS})\)</span>. Kernels where the attainable OPS are constrained by the <span class="arithmatex">\(\mathit{bandwidth} \times \mathit{OI}\)</span> are <em>bandwidth bound</em>, and those constrained by the <span class="arithmatex">\(\mathit{peak}\ \mathit{OPS}\)</span> are <em>compute bound</em>. Increasing the computational capacity does not increase performance for bandwidth bound kernels.</p>
 <div id="fig:roofline"></div>
-<p><img alt="" src="figures/ch07-07.png" />
+<p><img alt="" src="../figures/ch07-07.png" />
 <em>Figure 7.7:</em> A roofline model models the maximum attainable OPS for a particular kernel on a particular hardware. Kernel <span class="arithmatex">\(1\)</span> is well optimized and operating near the roofline. Kernels <span class="arithmatex">\(2\)</span> and <span class="arithmatex">\(3\)</span> are well below the roofline and require better software optimizations to more efficiently use the computational resources.</p>
 <p>The relation between roofline and computation time is as follows: the time <span class="arithmatex">\(T\)</span> it takes to execute a kernel, assuming perfect overlap of communication and computation, is: </p>
 <div class="arithmatex">\[T= \max \left( \frac{\text{number of ops to compute kernel}} {\text{peak processor OPS}}, \frac{\text{bytes to read from memory}} {\text{peak memory bandwidth}} \right).\]</div>
@@ -326,7 +299,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="74-processor-designs">7.4 Processor Designs</h2>
 <p>There are various types of architectures with different instruction sets, memory, and compute designs. In this section, we review instruction sets, and the type of processors used in DL, specifically CPUs, GPUs, FPGAs, CGRAs, DSPs, and ASICs, used separately or as components of a heterogeneous design. Given the prevalence of CPUs, GPUs, and ASICs, most of the focus is on these processors. These types of architectures balance flexibility (general-purpose computing) and performance (specialized computing), as illustrated in Figure <a href="../ch07/#fig:flexibility-power">7.8</a> across generalized architectures. In practice, the actual tradeoff depends on the specific microarchitecture; for example, recent Nvidia microarchitectures have specialized (ASIC-like) compute units for matrix multiplications, which increases peak OPS at the expense of higher software complexity. In this section, we introduce key characteristics of each of these processors, and in Section <a href="../ch07/#ch07.sec6">7.6</a>, we discuss prominent processors in production and development.</p>
 <div id="fig:flexibility-power"></div>
-<p><img alt="" src="figures/ch07-08.png" />
+<p><img alt="" src="../figures/ch07-08.png" />
 <em>Figure 7.8:</em> A generalization of different architectures providing tradeoffs between hardware efficiency and software flexibility (ease of programming). In practice, the actual tradeoff depends on the specific microarchitecture.</p>
 <p>The instruction set architecture (ISA) defines the operators, data types, and memory management for an abstract computer architecture. Different processors with different frequencies and memory sizes can implement the same ISA and execute the same binary. The specific implementation is called a <em>microarchitecture</em>. For instance, the x86 ISA implementation is different in Intel, AMD, and Centaur microarchitectures. The processor contains the circuit logic to execute the set of instructions. ASICs have unique ISAs usually not shared publicly.</p>
 <p>Two general types of instruction sets are the complex instruction set computer (CISC) and the reduced instruction set computer (RISC). The CISC ISA aims to execute multiple low-level operations per instruction. The RISC ISA is smaller and simpler than the CISC ISA and aims to provide higher IPC rates. The most common instruction sets and the typical devices that use them are as follows:</p>
@@ -356,7 +329,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>A CPU core is an independent processor with dedicated ALUs, control logic, local SRAM with a dedicated <span class="arithmatex">\(L1\)</span> cache, and multiple registers shared only between the SMT threads (when SMT is enabled). A GPU core cannot operate independently of other cores; it has dedicated registers but not dedicated SRAM; instead, it shares the memory with all the cores in the warp or wavefront. Given the limitations of a GPU core, some literature refers to them as threads. The warp or wavefront can be thought of as a core with massive SMT capabilities. Compared to CPUs, GPUs use much larger register files similar in sizes to a CPU's LLC to support the massive SMTs at higher throughput at the expense of higher latency.</p>
 <p>A typical bottleneck is the limited memory bandwidth. Increasing the SRAM associated with every compute unit or PE can mitigate this. Design choices range from Nvidia's V100 with large HBM2 and small local SRAM to Graphcore's Colossus with no DRAM and large SRAM units that take most of the silicon area, as illustrated in Figure <a href="../ch07/#fig:mem-designs">7.9</a>, and to emerging in-memory processing technology. The design choices affects the batch size required to achieve high efficiency. Hardware with more local SRAM can have higher compute utilization with small batch sizes, which can benefit both training and inference. Training with small batch sizes requires less hyperparameter tuning to converge. Inference with small batch sizes (often a batch size of one) is typical to meet latency constraints.</p>
 <div id="fig:mem-designs"></div>
-<p><img alt="" src="figures/ch07-09.png" />
+<p><img alt="" src="../figures/ch07-09.png" />
 <em>Figure 7.9:</em> The memory designs under the same power consumption range from using (left) HBM and small local SRAM to using (right) multiple SRAM units that take most of the silicon area and no DRAM. Blue rectangles represent the memory and yellow rectangles the compute units.</p>
 <p>A <strong>field-programmable gate array (FPGA)</strong> is a type of hardware with some small compute elements (logic blocks), such as memory, registers, lookup tables, and macro functions, and whose connectivity is reconfigurable and can be programmed. This programmability is beneficial to adapt to new workloads that require different hardware characteristics. Also, FPGAs are used to simulate ASICs and other processor designs before building them. Two challenges with FPGAs are the long compilation time (several minutes to hours) to reprogram the logic gates and the limited DL software tools.</p>
 <p>A <strong>coarse-grained reconfigurable array (<a href="https://dl.acm.org/doi/10.1145/3357375">CGRA</a>)</strong> is also a type of programmable hardware [<a href="../biblio/#liu2019-e">LZL+19</a>]. A CGRA can be thought of as an FPGA with coarser reconfigurability. Thus, in theory, a CGRA provides easier programmability but less flexibility compared to an FPGA. In practice, CGRAs have limited adoption due to the limited software tools.</p>
@@ -365,24 +338,24 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Most ASICs use dataflow architectures for MAC computations. A recommended high-level design for an ASIC is to pack as many transistors as possible into a die for MACs operators (the die size and power constrained by the deployment environment) to support matrix-wise operators. Then, use some of the silicon for element-wise operators, matrix transposes, and I/O, and use most of the rest for SRAM. The processor should operate at or slightly above the <span class="arithmatex">\(V_{\min}\)</span> voltage to ensure the highest ops/s per watt. Increasing the frequency past <span class="arithmatex">\(f_{\min}\)</span> increases the power with the cube of the increased frequency (see Section <a href="../ch07/#ch07.sec1">7.1</a>).</p>
 <p>There are various ways to implement MACs with dataflow parallelism. Chen et al. and Sze et al. <a href="https://ieeexplore.ieee.org/abstract/document/7948671">provide</a> a detailed <a href="https://www.morganclaypool.com/doi/abs/10.2200/S01004ED1V01Y202004CAC050">review</a> of various dataflow architectures [<a href="../biblio/#chen2017-b">CES17</a>; <a href="../biblio/#sze2020">SCY+20</a>]. These architectures have an array of PEs connected via a network-on-chip (NoC) with global SRAM memory, as illustrated in Figure <a href="../ch07/#fig:pe-array">7.10</a> for a <span class="arithmatex">\(3\times 3\)</span> array (in practice, the arrays are larger). The PE array gets the activations (Act), weights, and accumulated sum from the global SRAM. Each PE contains the ALU or FPU logic to perform MAC operations, a local control unit, and may have a local SRAM scratchpad (Spad). The MAC unit multiplies a set of weights and activation and adds the result to the accumulated partial sum.</p>
 <div id="fig:pe-array"></div>
-<p><img alt="" src="figures/ch07-10.png" />
+<p><img alt="" src="../figures/ch07-10.png" />
 <em>Figure 7.10:</em> An accelerator chip with a <span class="arithmatex">\(3\times 3\)</span> array of PEs. Each PE has a MAC unit that multiplies a set of weights and activations and adds the result to the accumulated sum. Based on [<a href="../biblio/#sze2017">SCY+17</a>].</p>
 <p>There are <a href="https://ieeexplore.ieee.org/abstract/document/7948671">four types</a> of dataflow architectures: no local reuse, weight-stationary, output-stationary, and row-stationary [<a href="../biblio/#chen2017-b">CES17</a>].</p>
 <p><strong>No Local Reuse</strong> maximizes the size of the global SRAM by not having local PE memory. The weights and activations pass from the global SRAM to each PE, with passes the accumulated sum to its neighbor along a row of PEs, as illustrated in Figure <a href="../ch07/#fig:nlr">7.11</a>.</p>
 <div id="fig:nlr"></div>
-<p><img alt="" src="figures/ch07-11.png" />
+<p><img alt="" src="../figures/ch07-11.png" />
 <em>Figure 7.11:</em> No local reuse dataflow architecture. Based on [<a href="../biblio/#sze2017">SCY+17</a>].</p>
 <p><strong>Weight-Stationary</strong> maximizes weight reuse by storing the weights in the PE's local memory. An activation is broadcasted to the relevant PEs, and the accumulated sum flows from each PE to its neighbor along a row of PEs, as illustrated in Figure <a href="../ch07/#fig:ws">7.12</a>. This data flow works well for traditional convolutional layers that reuse the weights. It is not efficient for fully-connected layers or convolutional layers with limited weight reuse, such as <span class="arithmatex">\(1\times 1\)</span> convolution or depthwise separable convolutions.</p>
 <div id="fig:ws"></div>
-<p><img alt="" src="figures/ch07-12.png" />
+<p><img alt="" src="../figures/ch07-12.png" />
 <em>Figure 7.12:</em> Weight-stationary dataflow architecture. Based on [<a href="../biblio/#sze2017">SCY+17</a>].</p>
 <p><strong>Output-Stationary</strong> maximizes reuse of the accumulated sums by storing them in the PE's local memory. A weight is broadcasted to all the relevant PEs. The activations flow from each PE to its neighbor along a row of PEs, as illustrated in Figure <a href="../ch07/#fig:os">7.13</a>.</p>
 <div id="fig:os"></div>
-<p><img alt="" src="figures/ch07-13.png" />
+<p><img alt="" src="../figures/ch07-13.png" />
 <em>Figure 7.13:</em> Output-stationary dataflow architecture. Based on [<a href="../biblio/#sze2017">SCY+17</a>].</p>
 <p><strong>Row-Stationary</strong> maximizes reuse across weights and activations. The accumulated sums flow from the bottom to the top columns, as illustrated in Figure <a href="../ch07/#fig:rs">7.14</a>. Row-Stationary, <a href="https://ieeexplore.ieee.org/abstract/document/7948671">proposed</a> by Chen et al., provides the best performance per watt for convolutions and fully-connected layers [<a href="../biblio/#chen2017-b">CES17</a>; <a href="../biblio/#chen2016-c">CES16</a>].</p>
 <div id="fig:rs"></div>
-<p><img alt="" src="figures/ch07-14.png" />
+<p><img alt="" src="../figures/ch07-14.png" />
 <em>Figure 7.14:</em> Row-stationary dataflow architecture. Based on [<a href="../biblio/#sze2017">SCY+17</a>].</p>
 <p>An operation may not distribute evenly across all the PEs in the array. <a href="https://dl.acm.org/doi/abs/10.1145/3358198">dMazeRunner</a> efficiently explores the various ways to split computational kernels in a dataflow accelerator [<a href="../biblio/#dave2019">DKA+19</a>].</p>
 <p>ASICs can also be customized to better support sparse matrix multiplications. Nvidia researchers demonstrated the benefits of sparse multiplications with the <a href="https://dl.acm.org/doi/10.1145/3352460.3358275">ExTensor accelerator</a> that rapidly finds intersections of nonzero operands and avoids multiplies by zero [<a href="../biblio/#hegde2019">HAP+19</a>].</p>
@@ -412,7 +385,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h3 id="751-physical-network-topologies">7.5.1 Physical Network Topologies</h3>
 <p>There are different device-to-device and host-to-host physical network connection, as shown in Figure <a href="../ch07/#fig:phy-topo">7.15</a>. In the early days of high-performance computing (HPC) interconnects, low-radix topologies were the norm. Higher radix network topologies are becoming more common as the pin bandwidth increases and can be efficiently partitioned across multiple ports [<a href="../biblio/#kim2008">KDS+08</a>; <a href="../biblio/#kim2005">KDT+05</a>].</p>
 <div id="fig:phy-topo"></div>
-<p><img alt="" src="figures/ch07-15.png" />
+<p><img alt="" src="../figures/ch07-15.png" />
 <em>Figure 7.15:</em> Examples of topology designs using 8 nodes. High-radix topologies provide lower communication latency across nodes. Based on [<a href="../biblio/#naumov2020">NKM+20</a>].</p>
 <p>Distributing the training of large models across several nodes requires communicating a large number of weights or activations. Therefore, high node-to-node bandwidth is beneficial. The optional choice of the communication primitive algorithm is dependent on the physical network topology. High-radix topologies are preferable when the bandwidth can be effectively utilized, as is the case in the AllReduce-Ring algorithm, but not in the other AllReduce algorithms analyzed in Section <a href="../ch05/#ch05.sec4">5.4</a>.</p>
 <div id="ch07.sec6"></div>
@@ -453,33 +426,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch08/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch08/" class="btn btn-xs btn-link">
-        Chapter 8: Compiler Optimizations
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch06/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch06/" class="btn btn-xs btn-link">
-        Chapter 6: Reducing the Model Size
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

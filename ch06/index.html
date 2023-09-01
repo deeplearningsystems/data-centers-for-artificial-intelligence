@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 6: Reducing the Model Size - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch06 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -59,33 +59,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch07/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch07/" class="btn btn-xs btn-link">
-        Chapter 7: Hardware
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch05/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch05/" class="btn btn-xs btn-link">
-        Chapter 5: Distributed Training
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch6"></div>
 <h1 id="chapter-6-reducing-the-model-size">Chapter 6: Reducing the Model Size</h1>
@@ -109,7 +82,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>While most commercial applications use <span class="arithmatex">\(fp32\)</span> for training and inference workloads, lower numerical formats are rapidly gaining adoption. Specifically, half-precision floating-point (<span class="arithmatex">\(fp16\)</span>) and bfloat16 (<span class="arithmatex">\(bf16\)</span>) for training and inference and, for a subset of workloads, <span class="arithmatex">\(\mathit{int8}\)</span> for inference, all with <span class="arithmatex">\(32\)</span> bits accumulation for MAC operations. Using <span class="arithmatex">\(bf16\)</span> or <span class="arithmatex">\(fp16\)</span> multipliers with <span class="arithmatex">\(fp32\)</span> accumulators has insignificant to no loss in the accuracy for training and inference. Using <span class="arithmatex">\(\mathit{int8}\)</span> multipliers with <span class="arithmatex">\(\mathit{int32}\)</span> accumulators has some to minimal loss in the accuracy for some inference workloads. Note that storing the activations in a <span class="arithmatex">\(16\)</span>-bit format reduces memory and bandwidth consumption by almost <span class="arithmatex">\(2\times\)</span>, <a href="https://arxiv.org/abs/1705.01991">even</a> if the hardware does not support <span class="arithmatex">\(16\)</span>-bit multiplies [<a href="../biblio/#devlin2017">Dev17</a>].</p>
 <p>Training requires a larger numerical representation than inference, in particular, to capture the dynamic range of the gradients and weight updates. Figure <a href="../ch06/#fig:log-dist">6.1</a> shows the histogram of log-base <span class="arithmatex">\(2\)</span> absolute values from ResNet-110 tensors across two separate training epochs and illustrates the larger range of the weight update values.</p>
 <div id="fig:log-dist"></div>
-<p><img alt="" src="figures/ch06-01.png" />
+<p><img alt="" src="../figures/ch06-01.png" />
 <em>Figure 6.1:</em> Distributions of the ResNet-110 weights, activations, and weight updates at two separate training epochs using the CIFAR dataset. Adapted from [<a href="../biblio/#koster2017">KWW+17</a>] with the authors' permission.</p>
 <p>An active research area is to develop numerical representations that better represent the values with <span class="arithmatex">\(8\)</span> bits and <span class="arithmatex">\(4\)</span> bits and are simple to implement in silicon. Using a smaller numerical representation can improve training and inference even if the hardware does not support higher peak operations per cycle at the smaller representation because the memory bandwidth savings accelerate memory bandwidth bound layers, which are common.</p>
 <p>Models are typically overparameterized, which facilitates training and provides opportunities to reduce the model size post-training. Trained models typically have several small weights. Forcing them to zero can have computational advantages with minimal to no statistical impact. This process is called <em>pruning</em> and results in a sparse model. There are two types of model sparsity, discussed in Section <a href="../ch06/#ch06.sec3">6.3</a>, structured and unstructured.</p>
@@ -140,7 +113,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>or <span class="arithmatex">\(0.5\)</span> for the integer representations.</p>
 <div id="tab:precision"></div>
 <p><em>Table 6.1:</em> A comparison of different numerical formats. The maximum numerical error of a given floating-point representation is the floating-point number multiplied by <em>Maximun Error</em>.
-<img alt="" src="figures/ta06-01.png" /></p>
+<img alt="" src="../figures/ta06-01.png" /></p>
 <p>Training a model with 16 bits (specifically <span class="arithmatex">\(bf16\)</span> or <span class="arithmatex">\(fp16\)</span>) usually requires the following:</p>
 <ul>
 <li>
@@ -221,7 +194,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Unstructured sparsity prunes values throughout a tensor without affecting the overall structure of the tensor, as shown in Figure <a href="../ch06/#fig:pruning">6.2</a>. The unstructured sparse pruned model can take advantage of BLAS functions in the Nvidia cuSPARSE and Intel oneMKL libraries when the sparsity is greater than <span class="arithmatex">\(90\%\)</span>. However, most sparse models have insufficient sparsity to significantly benefit from the sparse GEMM functions in these libraries. Alternatively, Google, DeepMind, and Stanford <a href="https://arxiv.org/abs/2006.10901">developed</a> techniques that achieve <span class="arithmatex">\(1.2\times-2.1\times\)</span> speedups and up to <span class="arithmatex">\(12.8\times\)</span> memory savings on Nvidia V100 GPUs without sacrificing accuracy on moderately sparse Transformer and MobileNet models [<a href="../biblio/#gale2020">GZY+20</a>].</p>
 <p>Most production hardware are designed for dense matrix operations. Hardware with support for sparse operands is limited; one example is the <a href="https://ieeexplore.ieee.org/document/8662302">LNPU</a> device [<a href="../biblio/#lee2019">LLH+19</a>]. Nvidia A100 GPUs have support for <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">fine-grained structure sparsity</a> with <span class="arithmatex">\(2\times\)</span> more compute.</p>
 <div id="fig:pruning"></div>
-<p><img alt="" src="figures/ch06-02.png" />
+<p><img alt="" src="../figures/ch06-02.png" />
 <em>Figure 6.2:</em> Pruning a model by removing the weights (links) closed to zero.</p>
 <p>The techniques for pruning are:</p>
 <ul>
@@ -244,7 +217,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p><a href="https://arxiv.org/abs/1503.02531">Knowledge distillation</a> (KD) is a model compression technique that builds on the work by <a href="https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf">Bucila et al.</a> and is gaining rapid adoption [<a href="../biblio/#hinton2015">HVD15</a>; <a href="../biblio/#bucila2006">BCN06</a>]. KD reduces the memory and computational requirements for a particular task and does not require a decompression step. KD is related to transfer learning. The knowledge from a complex model (the teacher model) is distilled to a simpler model (the student model). The student model is trained using a smaller dataset and a larger LR than was used on the teacher model.</p>
 <p>The trained teacher model generates softened probability outputs on the student's training dataset. The student model is trained to produce similar outputs as the teacher's softened probability output, as illustrated in Figure <a href="../ch06/#fig:kd">6.3</a>. A softened softmax, also called a softmax temperature, first divides the logits by some value <span class="arithmatex">\(T&gt;1\)</span> (called the temperature) before normalizing them. The output is a softened probability distribution that better captures class similarities. To illustrate, the softened output in digit classification for an input image with the number <span class="arithmatex">\(7\)</span> should have the highest value for <span class="arithmatex">\(7\)</span> and also a relatively high value for digits that look like <span class="arithmatex">\(7\)</span>, such as the handwritten digit <span class="arithmatex">\(1\)</span> and <span class="arithmatex">\(9\)</span>. The student model is trained to learn (1) the softened output using a softmax temperature and (2) the one-hot ground truth vector using the regular softmax. The softmax temperature also <a href="https://arxiv.org/abs/1909.11723">provides regularization</a> to the model [<a href="../biblio/#yuan2019">YTL+19</a>].</p>
 <div id="fig:kd"></div>
-<p><img alt="" src="figures/ch06-03.png" />
+<p><img alt="" src="../figures/ch06-03.png" />
 <em>Figure 6.3:</em> Knowledge distillation. A large teacher model distills the knowledge to a smaller student model. The student model learns using both the regular softmax and a softened softmax from the teacher model. Based on [<a href="../biblio/#intel2018">Int18</a>].</p>
 <p>The intuition behind KD is that the teacher model requires a more complex model to learn the relationships between the various classes. The ground truth one-hot vector does not encode class similarities and treats each class as entirely independent. The teacher model provides the class relations to the student model. Thus, the student model does not need to learn them from scratch and can use a simpler topology.</p>
 <p>Extensions to this work are the <a href="https://arxiv.org/abs/1706.00384">deep mutual learning</a> (DML) where an ensemble of students collaboratively learn and teach others by sharing their softmax outputs, and the <a href="https://arxiv.org/abs/1902.03393">teacher assistant</a> (TA) to distill the knowledge from the larger-size teacher model to an intermediate-size TA model to a smaller-size student model [<a href="../biblio/#zhang2017-b">ZXH+17</a>; <a href="../biblio/#mirzadeh2019">MFL+19</a>].</p>
@@ -252,33 +225,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch07/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch07/" class="btn btn-xs btn-link">
-        Chapter 7: Hardware
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch05/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch05/" class="btn btn-xs btn-link">
-        Chapter 5: Distributed Training
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

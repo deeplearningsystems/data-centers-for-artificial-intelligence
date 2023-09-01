@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 8: Compiler Optimizations - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch08 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -60,33 +60,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch09/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch09/" class="btn btn-xs btn-link">
-        Chapter 9: Frameworks and Compilers
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch07/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch07/" class="btn btn-xs btn-link">
-        Chapter 7: Hardware
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch8"></div>
 <h1 id="chapter-8-compiler-optimizations">Chapter 8: Compiler Optimizations</h1>
@@ -132,21 +105,21 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ol>
 <p>Each phase has one or more IRs depending on the optimization passes. One or multiple compilation infrastructures may be used for these phases.</p>
 <div id="fig:compiler"></div>
-<p><img alt="" src="figures/ch08-01.png" />
+<p><img alt="" src="../figures/ch08-01.png" />
 <em>Figure 8.1:</em> The compilation process consists of a front-end, middle-end, and back-end phase.</p>
 <h4 id="front-end">Front-end</h4>
 <p>The front-end compiler parses the code, converts it into tokens, checks for errors (syntactic and semantic analysis), and generates a domain-specific IR. Two common types of IR used by front-end compilers are the abstract syntax tree (AST) and the control-flow graph (CFG) data structures. The AST is language-dependent. It captures the lexical structure (layout) of the source code, using the internal nodes for the statements and operators, and the leaf nodes for the operands representing values or variables. The parser returns an error message if a rule in the language specification is violated. Front-end compiler algorithms are fairly matured. Figure <a href="../ch08/#fig:parser">8.2</a> illustrates an AST generated from a <code>for</code> loop.</p>
 <div id="fig:parser"></div>
-<p><img alt="" src="figures/ch08-02.png" />
+<p><img alt="" src="../figures/ch08-02.png" />
 <em>Figure 8.2:</em> (green) The programmer's source code. (orange) The abstract syntax tree (AST) representation. The parser constructs an AST that captures the lexical structure of the source code.</p>
 <p>A CFG is language-independent and expresses the control-flow and data paths through a program. A control-flow statement, such as <code>for</code>, <code>while</code>, and <code>if</code>, determines which of two or more paths to take. The nodes are basic blocks, and the edges represent possible execution paths between basic blocks. Basic blocks are a set of sequential operations with no branch statements until the end of the block. Figure <a href="../ch08/#fig:cfg">8.3</a> illustrates a CFG used to compute the factorial of <span class="arithmatex">\(N\)</span>. The top block is for the code that runs before the <code>while</code> loop. The next block is the comparison to decide which branch to take. The next block is the body and returns to the comparison. The last block is the code that runs after the <code>while</code> loop. A CFG is typically compiled from an AST IR.</p>
 <div id="fig:cfg"></div>
-<p><img alt="" src="figures/ch08-03.png" />
+<p><img alt="" src="../figures/ch08-03.png" />
 <em>Figure 8.3:</em> (green) The programmer's source code. (orange) The control-flow graph (CFG) representation. The CFG expresses the possible decisions at each graph node.</p>
 <h4 id="middle-end">Middle-end</h4>
 <p>The middle-end compiler has two main tasks: (1) <a href="https://sunfishcode.github.io/blog/2018/10/22/Canonicalization.html">canonicalize</a> the various ways of representing the code into predictable patterns removing unnecessary variations and (2) improve the performance via a series of optimizations. Some middle-end optimizations are completely hardware-agnostic, and others need information about the back-end hardware, such as multithreaded parallelization and SIMD vectorization. Figure <a href="../ch08/#fig:comp-opt">8.4</a> illustrates an example optimizing the equation <span class="arithmatex">\(c=a+b\)</span> as <span class="arithmatex">\(c=a\)</span>&lt;&lt;<span class="arithmatex">\(1\)</span>, where the operator &lt;&lt; <a href="https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Left_shift_%3C%3C">left-shifts</a> <span class="arithmatex">\(a\)</span> by <span class="arithmatex">\(1\)</span> bit, which is equivalent to multiplication by <span class="arithmatex">\(2\)</span>.</p>
 <div id="fig:comp-opt"></div>
-<p><img alt="" src="figures/ch08-04.png" />
+<p><img alt="" src="../figures/ch08-04.png" />
 <em>Figure 8.4:</em> The optimizer reduces the number of operators that need to be executed: (left) the unoptimized code and (right) the equivalent optimized code assuming <code>a</code> is an unsigned integer.</p>
 <p>The optimizer typically performs a series of distinct optimization passes on the IR. LLVM does <a href="https://www.youtube.com/watch?v=yCd3CzGSte8">around</a> 150 passes. GCC and LLVM use different algorithms to traverse the IR iteratively. While the order of optimizations affects the end result, strict rules to determine the optimal order do not exist.</p>
 <p>In general, there are three common compiler optimization parts: legality analysis, profitability analysis, and transformation. Legality analysis makes sure the transformation does not break the program. Profitability analysis uses a cost model to determine if the optimization is beneficial and searches for parameters to perform the optimization. Finally, the transformation performs the actual modification of the code.</p>
@@ -179,7 +152,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>In this section, LLVM refers to the LLVM Core, a middle-end and back-end compiler program written in C++.</p>
 <p>LLVM is designed as a set of reusable libraries with well-defined interfaces. A front-end compiler can be written for any language that can compile to the LLVM IR, and a back-end compiler can be written for any new target that can compile from the LLVM IR, as illustrated in Figure <a href="../ch08/#fig:llvm">8.5</a>.</p>
 <div id="fig:llvm"></div>
-<p><img alt="" src="figures/ch08-05.png" />
+<p><img alt="" src="../figures/ch08-05.png" />
 <em>Figure 8.5:</em> LLVM is designed as a set of modular compiler components supporting various front-end languages and back-end hardware targets.</p>
 <div id="ch08.sec3.sub1"></div>
 <h3 id="831-front-end-compilers">8.3.1 Front-End Compilers</h3>
@@ -187,7 +160,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>In addition to Clang, other front-end compilers to support multiple languages, such as Python, TensorFlow, Halide, Julia, Swift, and Fortran, can compile to LLVM. Thus, all those languages can exploit the same LLVM compilation infrastructure for compiler optimization passes and back-end machine code generation. The LLVM back-end compiler supports the x86, x86-64, PowerPC (PPC), Nvidia Parallel Thread Execution (PTX), AMD Graphics Core Next (GCN), Arm, and other architectures.</p>
 <p>LLVM does not support domain-specific expressions and types. Therefore, domain-specific SSA-based IRs, such as those shown in Figure <a href="../ch08/#fig:llvm-frontends">8.6</a>, should be used for optimizations that are too high-level for LLVM. A higher-level IR provides better location tracking to improve debuggability, traceability, and user experience. However, this comes at the expense of heavier infrastructure and some duplication in the domain-specific IR and LLVM IR optimizations.</p>
 <div id="fig:llvm-frontends"></div>
-<p><img alt="" src="figures/ch08-06.png" />
+<p><img alt="" src="../figures/ch08-06.png" />
 <em>Figure 8.6:</em> Many languages use a higher-level domain-specific IR for domain-specific optimizations before lowering to the LLVM IR. Based on [<a href="../biblio/#lattner2019">LP19</a>].</p>
 <p>Swift, Rust, Julia, and the TensorFlow library all use a higher-level IR. Swift uses the Swift High-Level IR (SIL), and TensorFlow uses XLA HLO before lowering to the LLVM IR. These higher-level IRs are similar to the LLVM IR but have domain-specific expressions and types; in particular, TensorFlow supports DL operators on tensors.</p>
 <div id="ch08.sec3.sub2"></div>
@@ -213,7 +186,7 @@ entry:
 <h3 id="834-gcc-comparison">8.3.4 GCC Comparison</h3>
 <p>The most popular compilers are LLVM and the GNU compiler collection (GCC). GCC is a compiler program primarily written in C to compile various high-level languages to machine code. The GCC acronym has two different meanings: the <em>GNU C Compiler</em>, a C compiler, and the <em>GNU Compiler Collection</em>, a collection of compilers for the C/C++, Objective-C, Java, and Fortran programming languages. GCC began as a C compiler and evolved to support other languages. Today, GCC is the default compiler in Linux, and Clang/LLVM is the <a href="https://clang.llvm.org/get_started.html">default</a> compiler in macOS. A high-level comparison between GCC and LLVM follows:</p>
 <div id="fig:gcc"></div>
-<p><img alt="" src="figures/ch08-07.png" />
+<p><img alt="" src="../figures/ch08-07.png" />
 <em>Figure 8.7:</em> GCC can be used for the front-end, middle-end, and back-end compilation.</p>
 <ul>
 <li>
@@ -266,7 +239,7 @@ entry:
 </ul>
 <p>As an example of the fusion benefits, Intel <a href="https://conferences.oreilly.com/artificial-intelligence/ai-ny-2019/public/schedule/detail/75130">reported</a> around <span class="arithmatex">\(80\times\)</span> performance gain for batch size <span class="arithmatex">\(1\)</span> fusing group convolutions in the MobileNet v1 model [<a href="../biblio/#straw2019">SPE19</a>]. In group convolution (introduced in Section <a href="../ch3./#ch3.sec2.sub1">3.</a>), the different feature channels across a data batch are divided up into groups processed independently. The fused group convolution is jointly processed as a single DL operator, as shown in Figure <a href="../ch08/#fig:fused-group-conv">8.8</a>.</p>
 <div id="fig:fused-group-conv"></div>
-<p><img alt="" src="figures/ch08-08.png" />
+<p><img alt="" src="../figures/ch08-08.png" />
 <em>Figure 8.8:</em> (a) A group of convolutions used in MobileNet v1. (b) A fused operator can be jointly optimized for the entire group. Based on [<a href="../biblio/#straw2019">SPE19</a>].</p>
 <p><strong>Loop permutations</strong> modify loop indices to improve memory access. Some permutations, such as loop tiling, are target-dependent and are discussed in the next section. An example of permutation is interchanging <code>for</code> loops, as shown in the following code. The indices are interchanged to have coalesced memory accesses, which are faster than strided memory access.</p>
 <pre><code class="language-cpp">// before loop permutations
@@ -463,33 +436,6 @@ for (i = 0; i&lt;100; i++)
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch09/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch09/" class="btn btn-xs btn-link">
-        Chapter 9: Frameworks and Compilers
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch07/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch07/" class="btn btn-xs btn-link">
-        Chapter 7: Hardware
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

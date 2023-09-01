@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 10: Opportunities and Challenges - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch10 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -59,33 +59,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <div class="container-fluid wm-page-content">
   <a name="_top"></a>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../biblio/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../biblio/" class="btn btn-xs btn-link">
-        Bibliography
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch09/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch09/" class="btn btn-xs btn-link">
-        Chapter 9: Frameworks and Compilers
-      </a>
-    </div>
-    
-  </div>
 
     
 
@@ -137,7 +110,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="102-democratizing-dl-platforms">10.2 Democratizing DL Platforms</h2>
 <p>Several companies and cloud service providers developed higher-level platforms on top of the popular frameworks to facilitate a model's life cycle: data preparation, topology exploration, experiment tracking, model packaging, and model deployment at scale. At-scale deployment often uses Kubernetes (k8s) clusters or Spark clusters. These platforms provide a collaborative and secure environment and access to the latest ML libraries. These platforms are designed to meet the needs of the data scientists and the infrastructure teams, which typically have different priorities, as illustrated in Figure <a href="../ch10/#fig:ds-infra">10.1</a>. Some of platforms are open-sourced. In the remainder of this section, we mention existing platforms that companies can adopt or emulate.</p>
 <div id="fig:ds-infra"></div>
-<p><img alt="" src="figures/ch10-01.png" />
+<p><img alt="" src="../figures/ch10-01.png" />
 <em>Figure 10.1:</em> The data science and infrastructure teams have different priorities. Based on [<a href="../biblio/#berg2019">BCC+19</a>].</p>
 <p>Platforms used for first-party users (that is, internal company users as opposed to third-party users, such as the external customers of cloud service providers) are as follows [<a href="../biblio/#hazelwood2018-b">HBB+18</a>; <a href="../biblio/#tensorflow-tfx2020">Goo20e</a>; <a href="../biblio/#mlnet2020">Mic20</a>; <a href="../biblio/#ahmed2019">AAB+19</a>; <a href="../biblio/#katariya2019">KR19</a>; <a href="../biblio/#hermann2017">HDB17</a>; <a href="../biblio/#holler2019">HM19</a>; <a href="../biblio/#eider2018">Eid18</a>; <a href="../biblio/#metaflow2019">Met19</a>; <a href="../biblio/#metaflow-aws2019">Met19b</a>]:</p>
 <ul>
@@ -241,7 +214,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="104-interpretability">10.4 Interpretability</h2>
 <p>Interpretability is an area of active research to explain the reasons for the decisions, biases, and limitations of a given model. Limited interpretability is a barrier for some industries adopting DL algorithms despite their higher statistical performance. For instance, online credit applications should provide the reasons that a given loan was accepted or rejected. This <a href="https://en.wikipedia.org/wiki/Right_to_explanation"><em>right-to-explanation</em></a> is required in some legal systems.</p>
 <div id="fig:explainability"></div>
-<p><img alt="" src="figures/ch10-02.png" />
+<p><img alt="" src="../figures/ch10-02.png" />
 <em>Figure 10.2:</em> Algorithms that are more interpretable typically have lower accuracy. Note this is not shown to scale, but rather is a generalization of the algorithms' interpretability. Based on [<a href="../biblio/#gunning2017">Gun17</a>].</p>
 <p>Interpretability methods can be applied to a topology using attention. Attention-based models learn to focus on the relevant inputs to produce a given output, which results in superior statistical performance while simultaneously provides <a href="https://www.nature.com/articles/s41598-019-38491-0">interpretable insights</a> [<a href="../biblio/#arik2019">AP19</a>; <a href="../biblio/#kaji2019">KZK+19</a>; <a href="../biblio/#shickel2019">SLA+19</a>].</p>
 <p><a href="http://www.cs.toronto.edu/pub/radford/thesis.pdf">BNN</a> combine the strength of NNs and Bayesian models to estimate the uncertainty of a NN prediction [<a href="../biblio/#neal1995">Nea95</a>]. They can estimate uncertainty and provide performance guarantees. However, they are computationally expensive and require a good prior approximation to make them useful. BNNs are an active field of research.</p>
@@ -272,33 +245,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../biblio/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../biblio/" class="btn btn-xs btn-link">
-        Bibliography
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch09/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch09/" class="btn btn-xs btn-link">
-        Chapter 9: Frameworks and Compilers
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>

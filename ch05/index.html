@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Chapter 5: Distributed Training - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
+    <title>Ch05 - Data Centers for Artificial Intelligence: Hardware Systems, Compilers, Libraries, and Algorithms</title>
     <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../css/base.css" rel="stylesheet">
@@ -59,33 +59,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch06/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch06/" class="btn btn-xs btn-link">
-        Chapter 6: Reducing the Model Size
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch04/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch04/" class="btn btn-xs btn-link">
-        Chapter 4: Training a Model
-      </a>
-    </div>
-    
-  </div>
-
-    
 
     <div id="ch5"></div>
 <h1 id="chapter-5-distributed-training">Chapter 5: Distributed Training</h1>
@@ -93,7 +66,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Training the popular ResNet-50 model commonly used for image classification <a href="https://arxiv.org/abs/1709.05011">requires</a> about <span class="arithmatex">\(10^{18}\)</span> (<span class="arithmatex">\(1\)</span> exa) operations which is considered small by today's standards and can be trained in <a href="https://developer.nvidia.com/deep-learning-performance-training-inference">under 2 hours</a> with <span class="arithmatex">\(8\)</span> V100 GPUs and in <a href="https://arxiv.org/abs/1903.12650">75 seconds</a> with <span class="arithmatex">\(2048\)</span> V100 GPUs [<a href="../biblio/#you2018">YZH+18</a>; <a href="../biblio/#nvidia-perf2020">Nvi20c</a>; <a href="../biblio/#yamazaki2019">YKT+18</a>]. Training the larger <span class="arithmatex">\(8.3\)</span> billion Megatron-LM model <a href="https://arxiv.org/abs/1909.08053">requires</a> <span class="arithmatex">\(12\times 10^{21}\)</span> (<span class="arithmatex">\(12\)</span> zetta) operations, and can take several days on hundreds of compute nodes [<a href="../biblio/#shoeybi2019">SPP+19</a>]. Training the prodigious 600 billion parameter <a href="https://arxiv.org/abs/2006.16668">GShard</a> takes 4 days on <span class="arithmatex">\(2048\)</span> TPU v3 accelerators [<a href="../biblio/#lepikhin2020">LLX+20</a>].</p>
 <p>The main techniques to distribute a training workload across multiple nodes are data parallelism and model parallelism (including pipeline parallelism), illustrated in Figure <a href="../ch05/#fig:parallelism">5.1</a>, and a hybrid of these. Also, federated learning is a form of data parallelism distributed training in edge (client/IoT) devices. Data and model parallelism benefit from high bandwidth interconnects between the nodes. In data parallelism, a batch (called the global-batch in this chapter) is split among the worker nodes and called the node-batch, with each node working on the same model. The nodes communicate the weight updates. In model parallelism, the model is split among the worker nodes, and the nodes communicate the activations. Model parallelism is typically used when the memory requirement exceeds the node's memory. In hybrid parallelism, data parallelism is used across groups of nodes (super-nodes), and model parallelism is used within each super-node.</p>
 <div id="fig:parallelism"></div>
-<p><img alt="" src="figures/ch05-01.png" />
+<p><img alt="" src="../figures/ch05-01.png" />
 <em>Figure 5.1:</em> (a) In model parallelism the model is distributed among multiple compute nodes. (b) In data parallelism, the training dataset is split among multiple compute nodes and each node has the entire model.</p>
 <p>Data parallelism is more commonly used in industry, but as the sizes of the models are growing, hybrid parallelism is becoming the norm for state-of-the-art models. In the remainder of this chapter, we describe data and model parallelism, their typical usages in data center training, and their limitations. We also discuss federated learning, and we review various communication primitives.</p>
 <div id="ch05.sec1"></div>
@@ -149,7 +122,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Federated learning is a decentralized learning methodology <a href="https://arxiv.org/abs/1602.05629">introduced</a> by Google and is an extension to data parallelism [<a href="../biblio/#mcmahan2017">MMR+17</a>]. The goal of federated learning is to use a large number of local client devices, such as mobile phones, to train a model without transmitting the training data. Federated learning is gaining adoption in the industry due to the data privacy and network bandwidth benefits. It is used to train the word predictor in <a href="https://arxiv.org/abs/1811.03604">Google Gboard</a> and URL predictor in <a href="https://florian.github.io/federated-learning-firefox/">Firefox</a> [<a href="../biblio/#hard2019">HRM+19</a>; <a href="../biblio/#hartmann2018">Har18</a>].</p>
 <p>In federated learning, as illustrated in Figure <a href="../ch05/#fig:federated">5.2</a>, an untrained or partially trained global model is pushed from a centralized global server to a large number of local client devices. Each device trains the model for multiple epochs using its local data and then transmits the updated local model to the central server within a given time window. All the devices train for the same local epochs and with the same batch size. The number of local iterations per epoch varies as it depends on the size of the local training dataset. The global server updates the global model as an average of the local models (more on this below). The server then broadcasts this new global model back to the client devices, and the process repeats. The number of epochs, batch size, and number of clients requires tuning for best performance.</p>
 <div id="fig:federated"></div>
-<p><img alt="" src="figures/ch05-02.png" />
+<p><img alt="" src="../figures/ch05-02.png" />
 <em>Figure 5.2:</em> Federated learning. (a) An untrained global model (represented by the green dot) is broadcasted to the client devices. (b) The training happens in each client device, and only the updated client model (represented by the various geometric figures) is transmitted to the cloud to update the global model. (c) The updated global model (represented by the gray pentagon) is broadcasted to all the client devices, and the process repeats. Based on [<a href="../biblio/#sasaki2019">Sas19</a>].</p>
 <p>Federated learning is especially useful when the client device has sensitive or private data the user does not want to share with an external server, or when the cost or the power to transmit the training data is higher than processing locally. Examples include mobile phone apps, healthcare patient data, companies' emails, and manufacturing equipment data. Some organizations (e.g., a hospital) can be thought of as a device client among a group (e.g., a group of hospitals) in federated learning.</p>
 <p>Federated learning is a generalized form of Sync SGD but, rather than synchronizing after every iteration, the weights are synchronized after some local epochs. The more infrequent the synchronizations, the more likely the model has convergence challenges. However, frequent synchronizations consume significant network bandwidth, which is prohibited in some devices. The primary challenge of federated learning is to reduce the synchronization frequency (by increasing the number of local epochs) and maintain the expected training convergence.</p>
@@ -203,7 +176,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 <p>The AllReduce, AllToAll, and AllGather primitives do not require a dedicated root node. While their end-result is equivalent to sequentially using two simpler primitives, they typically use more efficient implementations. Later in this section, we analyze various AllReduce implementations.</p>
 <div id="fig:primitives"></div>
-<p><img alt="" src="figures/ch05-03.png" />
+<p><img alt="" src="../figures/ch05-03.png" />
 <em>Figure 5.3:</em> (a) The broadcast primitive copies a set of elements in the root node to the other nodes. (b) The scatter primitive copies a separate partition of a set of elements in the root node to the other nodes. Note that reversing the arrows results in the gather primitive. (c) The all-to-all primitive (also known as transpose) copies a separate partition of a set of elements in each node to the other nodes, where the received partitions are concatenated.</p>
 <p>The MPICH, OpenMPI, Intel MPI, and MVAPICH libraries implement primitives using the Message Passing Interface (MPI) standard specifications. The MPI is a library specification that operates at the <a href="https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_Layer">transport layer</a> implemented by MPICH and other libraries in C/C++ and Fortran with message-passing standards and APIs. In the MPI specification, each processor node has a unique address space. The literature on collective communication primitives is extensive, including their <a href="https://dl.acm.org/doi/10.1177/1094342005051521">optimizations</a> for clusters connected by switched networks and a <a href="https://dl.acm.org/doi/10.1145/3295500.3356176">study</a> of MPI usages [<a href="../biblio/#thakur2005">TRG05</a>; <a href="../biblio/#laguna2019">LMM+19</a>].</p>
 <p>Libraries that offer higher-level communication functions using existing primitives libraries or reimplementing them are: <a href="https://arxiv.org/abs/1802.05799">Horovod</a>, Nvidia's <a href="https://developer.nvidia.com/nccl">NCCL</a>, Facebook's <a href="https://github.com/facebookincubator/gloo">Gloo</a>, Intel's <a href="https://github.com/oneapi-src/oneCCL">oneCCL</a>, and <a href="https://arxiv.org/abs/1802.08021">SparCML</a> and <a href="https://arxiv.org/abs/1910.04940">Blink</a> from academia [<a href="../biblio/#sergeev2018">SDB18</a>; <a href="../biblio/#renggli2019">RAA+19</a>; <a href="../biblio/#wang2019">WVP+19</a>]. Horovod has broad industry adoption for GPU and CPU distributed training. It is supported by various DL libraries, including TensorFlow, PyTorch, and MXNet. Horovod <a href="https://horovod.readthedocs.io/en/latest/install_include.html">uses</a> NCCL for GPUs and oneCCL, MPI, and Gloo for CPUs. Uber developed and contributed Horovod to the <a href="https://lfai.foundation/projects/horovod/">LF AI foundation</a>.</p>
@@ -211,7 +184,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>In Sync SGD data parallelism, the end result of AllReduce is for all the nodes to receive the aggregated sum of all the local weight gradients; that is, the reduction happens across the nodes. For instance, during the backpropagation of a typical convolution layer with a 4D weight gradient tensor (number of kernels, number of channels, kernel height, and kernel width), the AllReduce primitive aggregates the 4D tensors across all the nodes and broadcasts the sum. In Sync SGD, AllReduce is necessary to ensure the weights across all the nodes are the same at the end of each training iteration. AllReduce algorithms differ in the specific mechanism to achieve this Reduce+Broadcast, but the results are the same.</p>
 <p>In the following analysis, we examine four AllReduce algorithms based on the number of nodes, latency, and bandwidth: parameter server (PS), AllReduce-Ring, AllReduce-Butterfly, and AllReduce-Tree, shown in Figure <a href="../ch05/#fig:allreduce">5.4</a>. We assume there are <span class="arithmatex">\(P\)</span> nodes connected in a <span class="arithmatex">\(1\)</span>-hop all-to-all (fully connected) physical network: each node-to-node link has the same latency <span class="arithmatex">\(L\)</span> independent of how many nodes are communicating. We also assume the links are bidirectional with a per directional bandwidth of <span class="arithmatex">\(B\)</span> between any two nodes, and the nodes can simultaneously send and receive messages without affecting the unidirectional performance. The terms <em>node</em> and <em>processor</em> are used interchangeably, and <em>rank</em> refers to the node ID from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(P-1\)</span>. Note that the physical network topology impacts which algorithm is optimal. For instance, running an AllReduce-Ring algorithm on a system with a ring physical network topology is much better than an AllReduce-Butterfly algorithm on the same ring physical topology since the load would not be balanced between links. Section <a href="../ch07/#ch07.sec5">7.5</a> discusses the physical interconnects and physical network topologies.</p>
 <div id="fig:allreduce"></div>
-<p><img alt="" src="figures/ch05-04.png" />
+<p><img alt="" src="../figures/ch05-04.png" />
 <em>Figure 5.4:</em> Various AllReduce algorithms.</p>
 <p>Note the difference between network latency and bandwidth. The latency <span class="arithmatex">\(L\)</span> is the time to communicate one byte from one node to another. The bandwidth <span class="arithmatex">\(B\)</span> is the number of bytes that can move through the network per second (the width of the network pipeline) per direction. The total execution time <span class="arithmatex">\(T\)</span> to transfer a message of <span class="arithmatex">\(M\)</span> bytes from one node to another node is: </p>
 <div class="arithmatex">\[T = L + M/B = L + T',\]</div>
@@ -236,33 +209,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <br>
     
-
-    
-    
-      
-    
-
-  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
-    
-    <div class="wm-article-nav pull-right">
-      <a href="../ch06/" class="btn btn-xs btn-default pull-right">
-        Next
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-      <a href="../ch06/" class="btn btn-xs btn-link">
-        Chapter 6: Reducing the Model Size
-      </a>
-    </div>
-    
-    <div class="wm-article-nav">
-      <a href="../ch04/" class="btn btn-xs btn-default pull-left">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../ch04/" class="btn btn-xs btn-link">
-        Chapter 4: Training a Model
-      </a>
-    </div>
-    
-  </div>
 
     <br>
 </div>
